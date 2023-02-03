@@ -1,11 +1,15 @@
 ## DBdiagram.io code
 ```
+
 Table users {
   id int [pk]
   firstName varchar
   lastName varchar
   email varchar
   username varchar
+  password varchar
+  created datetime
+  updated datetime
 }
 
 Table groups {
@@ -17,14 +21,26 @@ Table groups {
   private boolean
   city varchar
   state varchar
-  numMembers int
-  previewImage varchar [ref: > images.id]
+  created datetime
+  updated datetime
 }
 
-Table images {
+Table eventImages {
   id int [pk]
   url varchar
+  eventId int [ref: > events.id]
   preview boolean
+  created datetime
+  updated datetime
+}
+
+Table groupImages {
+  id int [pk]
+  url varchar
+  groupId int [ref: > groups.id]
+  preview boolean
+  created datetime
+  updated datetime
 }
 
 Table venues {
@@ -34,6 +50,8 @@ Table venues {
   state varchar
   lat float
   lng float
+  created datetime
+  updated datetime
 }
 
 Table events {
@@ -47,21 +65,25 @@ Table events {
   price float
   startDate datetime
   endDate datetime
-  numAttending int
-  previewImage varchar [ref: > images.id]
+  created datetime
+  updated datetime
 }
 
-Table attendance {
+Table attendances {
   id int [pk]
   status varchar
   userId varchar [ref: > users.id]
   eventId varchar [ref: > events.id]
+  created datetime
+  updated datetime
 }
 
-Table members {
+Table memberships {
   id int [pk]
   userId int [ref: > users.id]
   groupId int [ref: > groups.id]
+  created datetime
+  updated datetime
 }
 
 ```
