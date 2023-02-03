@@ -80,6 +80,7 @@ Table attendances {
 
 Table memberships {
   id int [pk]
+  status varchar
   userId int [ref: > users.id]
   groupId int [ref: > groups.id]
   created datetime
