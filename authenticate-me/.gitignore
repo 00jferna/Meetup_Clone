@@ -1,0 +1,6 @@
+/assessment-for-sprint-13-api-documentation-meetup/
+node_modules
+.env
+build
+.DS_Store
+*.db
