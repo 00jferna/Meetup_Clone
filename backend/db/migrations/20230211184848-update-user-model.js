@@ -7,22 +7,19 @@ if (process.env.NODE_ENV === "production") {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn("Users", "firstName", {
+    options.tableName = "Users";
+    await queryInterface.addColumn(options, "firstName", {
       type: Sequelize.STRING(30),
     });
-    await queryInterface.addColumn(
-      "Users",
-      "lastName",
-      {
-        type: Sequelize.STRING(30),
-      },
-      options
-    );
+    await queryInterface.addColumn(options, "lastName", {
+      type: Sequelize.STRING(30),
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn("Users", "firstName");
+    options.tableName = "Users";
+    await queryInterface.removeColumn(options, "firstName");
 
-    await queryInterface.removeColumn("Users", "lastName");
+    await queryInterface.removeColumn(options, "lastName");
   },
 };
