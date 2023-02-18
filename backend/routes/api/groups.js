@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
       { model: Membership, attributes: [] },
       { model: Groupimage, attributes: [] },
     ],
-    group: ["Group.id",'Groupimages.url'],
+    group: ["Group.id", "Groupimages.url"],
   });
 
   return res.status(200).json(groups);
@@ -64,7 +64,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
       { model: Membership, where: { userid: organizerid }, attributes: [] },
       { model: Groupimage, attributes: [] },
     ],
-    group: ["Group.id"],
+    group: ["Group.id", "Groupimages.url"],
   });
 
   return res.status(200).json(groups);
@@ -98,6 +98,7 @@ router.get("/:groupId", async (req, res) => {
       { model: Groupimage },
       { model: Event, include: [{ model: Venue }] },
     ],
+    group: ["Group.id", "Groupimages.url"],
   });
   if (groups.id) {
     return res.status(200).json(groups);
