@@ -2,7 +2,7 @@
 const express = require("express");
 
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { User, Sequelize } = require("../../db/models");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -36,12 +36,13 @@ router.post("/", validateSignup, async (req, res) => {
     username,
     password,
   });
+  
+  const returnToken = await setTokenCookie(res, user);
 
-  await setTokenCookie(res, user);
+  userObj = user.toJSON();
+  userObj.token = returnToken;
 
-  return res.json({
-    user: user,
-  });
+  return res.json(userObj);
 });
 
 module.exports = router;
