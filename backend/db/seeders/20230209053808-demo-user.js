@@ -1,38 +1,55 @@
-'use strict';
+"use strict";
 const bcrypt = require("bcryptjs");
 
 let options = {};
-if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+if (process.env.NODE_ENV === "production") {
+  options.schema = process.env.SCHEMA; // define your schema in options object
 }
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    options.tableName = 'Users';
-    return queryInterface.bulkInsert(options, [
-      {
-        email: 'demo@user.io',
-        username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password')
-      },
-      {
-        email: 'user1@user.io',
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2')
-      },
-      {
-        email: 'user2@user.io',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3')
-      }
-    ], {});
+    options.tableName = "Users";
+    return queryInterface.bulkInsert(
+      options,
+      [
+        {
+          id: 2,
+          email: "Clark@user.io",
+          username: "ClarkA",
+          firstName: "Clark",
+          lastName: "Adams",
+          hashedPassword: bcrypt.hashSync("password"),
+        },
+        {
+          id: 3,
+          email: "John@user.io",
+          username: "JohnS",
+          firstName: "John",
+          lastName: "Smith",
+          hashedPassword: bcrypt.hashSync("password1"),
+        },
+        {
+          id: 4,
+          email: "Jane@user.io",
+          username: "JaneD",
+          firstName: "Jane",
+          lastName: "Doe",
+          hashedPassword: bcrypt.hashSync("password2"),
+        },
+      ],
+      {}
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
-    options.tableName = 'Users';
+    options.tableName = "Users";
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
-    }, {});
-  }
+    return queryInterface.bulkDelete(
+      options,
+      {
+        username: { [Op.in]: ["ClarkA", "JohnS", "JaneD"] },
+      },
+      {}
+    );
+  },
 };

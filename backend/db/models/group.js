@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Group extends Model {
     /**
@@ -7,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
     static associate(models) {
       // define association here
       Group.hasMany(models.Groupimage, {
@@ -21,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "groupid",
       });
 
-      Group.belongsTo(models.User, {
+      Group.belongsTo(models.User, {as:"Organizer",
         foreignKey: "organizerid",
       });
     }
@@ -67,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           customValidation(value) {
-            if (value !== true || value !== false) {
+            if (value !== true && value !== false) {
               throw new Error("Private must be a boolean");
             }
           },
@@ -77,6 +79,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
+          len: {
+            args: [1, 30],
+            msg: "City is required",
+          },
           notNull: {
             msg: "City is required",
           },
@@ -86,6 +92,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
+          len: {
+            args: [1, 30],
+            msg: "State is required",
+          },
           notNull: {
             msg: "State is required",
           },
