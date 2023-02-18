@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
       { model: Membership, attributes: [] },
       { model: Groupimage, attributes: [] },
     ],
-    group: ["Group.id"],
+    group: ["Group.id",'Groupimages.url'],
   });
 
   return res.status(200).json(groups);
