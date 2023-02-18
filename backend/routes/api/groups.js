@@ -58,13 +58,13 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
       "createdAt",
       "updatedAt",
       [Sequelize.fn("COUNT", Sequelize.col("Memberships.id")), "numMembers"],
-      [Sequelize.col("Groupimages.url"), "previewImage"],
+      [sequelize.where(Sequelize.col("Groupimages.url"), '*'), "previewImage"],
     ],
     include: [
       { model: Membership, where: { userid: organizerid }, attributes: [] },
-      { model: Groupimage, attributes: [] },
+      { model: Groupimage, attributes: ['url'] },
     ],
-    group: ["Group.id"],
+    group: ["Group.id",'Groupimages.url'],
   });
 
   return res.status(200).json(groups);
