@@ -58,7 +58,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
       "createdAt",
       "updatedAt",
       [Sequelize.fn("COUNT", Sequelize.col("Memberships.id")), "numMembers"],
-      [sequelize.where(Sequelize.col("Groupimages.url"), '*'), "previewImage"],
+      [Sequelize.where(Sequelize.col("Groupimages.url"), '*'), "previewImage"],
     ],
     include: [
       { model: Membership, where: { userid: organizerid }, attributes: [] },
