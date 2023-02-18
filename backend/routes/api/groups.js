@@ -95,10 +95,10 @@ router.get("/:groupId", async (req, res) => {
         as: "Organizer",
         attributes: ["id", "firstName", "lastName"],
       },
-      { model: Groupimage },
-      { model: Event, include: [{ model: Venue }] },
+      { model: Groupimage, attributes: ["id", "url", "preview"] },
+      { model: Event, attributes:[], include: [{ model: Venue, attributes:[] }] },
     ],
-    group: ["Group.id", "Organizer.id", "Groupimages.url"],
+    group: ["Group.id", "Organizer.id", "Groupimages.id", "Groupimages.url", "Groupimages.preview"],
   });
   if (groups.id) {
     return res.status(200).json(groups);
