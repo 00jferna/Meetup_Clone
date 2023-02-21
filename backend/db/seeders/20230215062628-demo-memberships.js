@@ -41,6 +41,21 @@ module.exports = {
           userid: 4,
           groupid: 2,
         },
+        {
+          status: "co-host",
+          userid: 2,
+          groupid: 3,
+        },
+        {
+          status: "member",
+          userid: 3,
+          groupid: 3,
+        },
+        {
+          status: "pending",
+          userid: 4,
+          groupid: 3,
+        },
       ],
       {}
     );

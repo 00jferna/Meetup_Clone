@@ -9,9 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Event.belongsTo(models.Group, {
-        foreignKey: "groupid",
-      });
+      Event.belongsTo(models.Group, { as: "Group", foreignKey: "groupid" });
 
       Event.belongsTo(models.Venue, {
         foreignKey: "venueid",
@@ -107,6 +105,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Event",
+      defaultScope: {
+        attributes: {
+          exclude: ["description", "createdAt", "updatedAt"],
+        },
+      },
     }
   );
   return Event;
