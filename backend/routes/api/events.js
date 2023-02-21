@@ -50,7 +50,7 @@ router.get("/", async (req, res) => {
       },
       { model: Attendance, attributes: [] },
     ],
-    group: ["Event.id", "Group.id", "Group.Groupimages.url"],
+    group: ["Event.id", "Group.id","Venue.id", "Group.Groupimages.url"],
   });
 
   return res.status(200).json(events);
