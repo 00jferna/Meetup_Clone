@@ -7,54 +7,54 @@ if (process.env.NODE_ENV === "production") {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    options.tableName = "Memberships";
+    options.tableName = "Attendances";
     return queryInterface.bulkInsert(
       options,
       [
         {
-          status: "co-host",
+          status: "member",
           userid: 2,
-          groupid: 1,
+          eventid: 1,
         },
         {
-          status: "member",
+          status: "waitlist",
           userid: 3,
-          groupid: 1,
+          eventid: 1,
         },
         {
           status: "pending",
           userid: 4,
-          groupid: 1,
-        },
-        {
-          status: "co-host",
-          userid: 2,
-          groupid: 2,
+          eventid: 1,
         },
         {
           status: "member",
+          userid: 2,
+          eventid: 2,
+        },
+        {
+          status: "waitlist",
           userid: 3,
-          groupid: 2,
+          eventid: 2,
         },
         {
           status: "pending",
           userid: 4,
-          groupid: 2,
-        },
-        {
-          status: "co-host",
-          userid: 2,
-          groupid: 3,
+          eventid: 2,
         },
         {
           status: "member",
+          userid: 2,
+          eventid: 3,
+        },
+        {
+          status: "waitlist",
           userid: 3,
-          groupid: 3,
+          eventid: 3,
         },
         {
           status: "pending",
           userid: 4,
-          groupid: 3,
+          eventid: 3,
         },
       ],
       {}
@@ -62,12 +62,12 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    options.tableName = "Memberships";
+    options.tableName = "Attendances";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(
       options,
       {
-        userid: { [Op.in]: [2, 3, 4] },
+        eventid: { [Op.in]: [1, 2, 3] },
       },
       {}
     );

@@ -8,7 +8,7 @@ const {
   Event,
   Sequelize,
 } = require("../../db/models");
-const membership = require("../../db/models/membership");
+
 const { restoreUser, requireAuth } = require("../../utils/auth");
 
 const router = express.Router();
