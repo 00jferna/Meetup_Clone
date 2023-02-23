@@ -24,7 +24,7 @@ module.exports = {
           allowNull: false,
         },
         groupId: {
-          type: Sequelize.STRING(30),
+          type: Sequelize.INTEGER,
           allowNull: false,
         },
         createdAt: {
