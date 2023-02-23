@@ -96,9 +96,54 @@ router.get("/:groupId", async (req, res) => {
         attributes: ["id", "firstName", "lastName"],
       },
       { model: Groupimage, attributes: ["id", "url", "preview"] },
-      { model: Event, attributes:[], include: [{ model: Venue, attributes:[] }] },
+      {
+        model: Event,
+        attributes: [],
+        include: [{ model: Venue, attributes: [] }],
+      },
     ],
-    group: ["Group.id", "Organizer.id", "Groupimages.id", "Groupimages.url", "Groupimages.preview"],
+    group: [
+      "Group.id",
+      "Organizer.id",
+      "Groupimages.id",
+      "Groupimages.url",
+      "Groupimages.preview",
+    ],
+  });
+  if (groups.id) {
+    return res.status(200).json(groups);
+  } else {
+    returnMsg.message = "Group couldn't be found";
+    returnMsg.statusCode = 404;
+    return res.status(404).json(returnMsg);
+  }
+});
+
+// Get all Events of a Group specified by its id
+router.get("/:groupId/events", async (req, res) => {
+  const id = req.params.groupId;
+  const groups = await Group.findOne({
+    where: { id },
+    attributes: [
+      [Sequelize.fn("COUNT", Sequelize.col("Memberships.id")), "numAttending"],
+      [Sequelize.col("Groupimages.url"), "previewImage"],
+    ],
+    include: [
+      { model: Membership, attributes: [] },
+      { model: Groupimage, attributes: [] },
+      {
+        model: Event,
+        attributes: [],
+        include: [{ model: Venue, attributes: [] }],
+      },
+    ],
+    group: [
+      
+      
+      "Groupimages.id",
+      "Groupimages.url",
+      "Groupimages.preview",
+    ],
   });
   if (groups.id) {
     return res.status(200).json(groups);
