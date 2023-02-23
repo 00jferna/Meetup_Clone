@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
   const groups = await Group.findAll({
     attributes: [
       "id",
-      "organizerid",
+      "organizerId",
       "name",
       "about",
       "type",
@@ -44,11 +44,11 @@ router.get("/", async (req, res) => {
 
 // Get all Groups joined or organized by the Current User
 router.get("/current", restoreUser, requireAuth, async (req, res) => {
-  const organizerid = req.user.id;
+  const organizerId = req.user.id;
   const groups = await Group.findAll({
     attributes: [
       "id",
-      "organizerid",
+      "organizerId",
       "name",
       "about",
       "type",
@@ -61,7 +61,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
       [Sequelize.col("Groupimages.url"), "previewImage"],
     ],
     include: [
-      { model: Membership, where: { userid: organizerid }, attributes: [] },
+      { model: Membership, where: { userId: organizerId }, attributes: [] },
       { model: Groupimage, attributes: [] },
     ],
     group: ["Group.id", "Groupimages.url"],
@@ -77,7 +77,7 @@ router.get("/:groupId", async (req, res) => {
     where: { id },
     attributes: [
       "id",
-      "organizerid",
+      "organizerId",
       "name",
       "about",
       "type",
@@ -99,7 +99,7 @@ router.get("/:groupId", async (req, res) => {
       {
         model: Event,
         attributes: [],
-        include: [{ model: Venue, attributes: [] }],
+        include: [{ model: Venue, as: 'Venues', attributes: [] }],
       },
     ],
     group: [
@@ -122,29 +122,8 @@ router.get("/:groupId", async (req, res) => {
 // Get all Events of a Group specified by its id
 router.get("/:groupId/events", async (req, res) => {
   const id = req.params.groupId;
-  const groups = await Group.findOne({
-    where: { id },
-    attributes: [
-      [Sequelize.fn("COUNT", Sequelize.col("Memberships.id")), "numAttending"],
-      [Sequelize.col("Groupimages.url"), "previewImage"],
-    ],
-    include: [
-      { model: Membership, attributes: [] },
-      { model: Groupimage, attributes: [] },
-      {
-        model: Event,
-        attributes: [],
-        include: [{ model: Venue, attributes: [] }],
-      },
-    ],
-    group: [
-      
-      
-      "Groupimages.id",
-      "Groupimages.url",
-      "Groupimages.preview",
-    ],
-  });
+  const groups = await Group.findOne();
+
   if (groups.id) {
     return res.status(200).json(groups);
   } else {
@@ -157,9 +136,9 @@ router.get("/:groupId/events", async (req, res) => {
 // Create a Group
 router.post("/", restoreUser, requireAuth, async (req, res) => {
   const { name, about, type, private, city, state } = req.body;
-  const organizerid = req.user.id;
+  const organizerId = req.user.id;
   const group = await Group.create({
-    organizerid,
+    organizerId,
     name,
     about,
     type,
@@ -170,8 +149,8 @@ router.post("/", restoreUser, requireAuth, async (req, res) => {
 
   await Membership.create({
     status: "co-host",
-    userid: organizerid,
-    groupid: group.id,
+    userId: organizerId,
+    groupId: group.id,
   });
 
   return res.status(201).json(group);
@@ -180,7 +159,7 @@ router.post("/", restoreUser, requireAuth, async (req, res) => {
 // Add an Image to a Group based on the Group's id
 router.post("/:groupId/images", restoreUser, requireAuth, async (req, res) => {
   const id = req.params.groupId;
-  const userid = req.user.id;
+  const userId = req.user.id;
   const { url, preview } = req.body;
 
   const group = await Group.findByPk(id);
@@ -190,10 +169,10 @@ router.post("/:groupId/images", restoreUser, requireAuth, async (req, res) => {
     returnMsg.statusCode = 404;
     return res.status(404).json(returnMsg);
   }
-  if (userid === group.organizerid) {
+  if (userId === group.organizerId) {
     const createdImg = await Groupimage.create({
       url,
-      groupid: id,
+      groupId: id,
       preview,
     });
 
@@ -211,7 +190,7 @@ router.post("/:groupId/images", restoreUser, requireAuth, async (req, res) => {
 // Edit a Group
 router.put("/:groupId", restoreUser, requireAuth, async (req, res) => {
   const id = req.params.groupId;
-  const userid = req.user.id;
+  const userId = req.user.id;
   const { name, about, type, private, city, state } = req.body;
   const group = await Group.findByPk(id);
 
@@ -220,7 +199,7 @@ router.put("/:groupId", restoreUser, requireAuth, async (req, res) => {
     returnMsg.statusCode = 404;
     return res.status(404).json(returnMsg);
   }
-  if (userid === group.organizerid) {
+  if (userId === group.organizerId) {
     const updates = await group.update({
       name,
       about,
@@ -241,7 +220,7 @@ router.put("/:groupId", restoreUser, requireAuth, async (req, res) => {
 // Delete a Group
 router.delete("/:groupId", restoreUser, requireAuth, async (req, res) => {
   const id = req.params.groupId;
-  const userid = req.user.id;
+  const userId = req.user.id;
   const { name, about, type, private, city, state } = req.body;
   const group = await Group.findByPk(id);
 
@@ -250,11 +229,124 @@ router.delete("/:groupId", restoreUser, requireAuth, async (req, res) => {
     returnMsg.statusCode = 404;
     return res.status(404).json(returnMsg);
   }
-  if (userid === group.organizerid) {
+  if (userId === group.organizerId) {
     const deleted = await group.destroy();
     returnMsg.message = "Successfully deleted";
     returnMsg.statusCode = 200;
     return res.status(200).json(returnMsg);
+  } else {
+    returnMsg.message = "Forbidden";
+    returnMsg.statusCode = 403;
+    return res.status(403).json(returnMsg);
+  }
+});
+
+// Get All Venues for a Group specified by its id
+router.get("/:groupId/venues", restoreUser, requireAuth, async (req, res) => {
+  const id = req.params.groupId;
+  const userId = req.user.id;
+
+  const group = await Group.findByPk(id);
+
+  if (!group) {
+    returnMsg.message = "Group couldn't be found";
+    returnMsg.statusCode = 404;
+    return res.status(404).json(returnMsg);
+  }
+  if (userId) {
+    const venues = await Group.findAll({
+      where: { id },
+      attributes: [],
+      include: {
+        model: Event,
+        attributes: [],
+        include: {
+          model: Venue,
+          as: "Venues",
+        },
+      },
+    });
+    return res.status(200).json(venues);
+  } else {
+    returnMsg.message = "Forbidden";
+    returnMsg.statusCode = 403;
+    return res.status(403).json(returnMsg);
+  }
+});
+
+// Create a new Venue for a Group specified by its id
+router.post("/:groupId/venues", restoreUser, requireAuth, async (req, res) => {
+  const id = req.params.groupId;
+  const userId = req.user.id;
+  const { address, city, state, lat, lng } = req.body;
+
+  const group = await Group.findByPk(id);
+
+  if (!group) {
+    returnMsg.message = "Group couldn't be found";
+    returnMsg.statusCode = 404;
+    return res.status(404).json(returnMsg);
+  }
+  if (userId === group.organizerId) {
+    const createdVenue = await Venue.create({
+      groupId: id,
+      address,
+      city,
+      state,
+      lat,
+      lng,
+    });
+
+    const newVenue = await Venue.scope("newVenue").findByPk(createdVenue.id);
+    if (newVenue) {
+      return res.status(200).json(newVenue);
+    }
+  } else {
+    returnMsg.message = "Forbidden";
+    returnMsg.statusCode = 403;
+    return res.status(403).json(returnMsg);
+  }
+});
+
+//Create an Event for a Group specified by its id
+router.post("/:groupId/events", restoreUser, requireAuth, async (req, res) => {
+  const id = req.params.groupId;
+  const userId = req.user.id;
+  const {
+    venueId,
+    name,
+    type,
+    capacity,
+    price,
+    description,
+    startDate,
+    endDate,
+  } = req.body;
+
+  const group = await Group.findByPk(id);
+
+  if (!group) {
+    returnMsg.message = "Group couldn't be found";
+    returnMsg.statusCode = 404;
+    return res.status(404).json(returnMsg);
+  }
+  if (userId === group.organizerId) {
+    const createdEvent = await Event.create({
+      groupId: id,
+      venueId,
+      name,
+      type,
+      capacity,
+      price,
+      description,
+      startDate,
+      endDate,
+    });
+
+    const newEvent = await Event.findByPk(createdEvent.id);
+    if (newEvent) {
+      return res.status(200).json(newEvent);
+    }
   } else {
     returnMsg.message = "Forbidden";
     returnMsg.statusCode = 403;

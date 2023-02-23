@@ -15,11 +15,11 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        groupid: {
+        groupId: {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        venueid: {
+        venueId: {
           type: Sequelize.INTEGER,
           allowNull: false,
         },

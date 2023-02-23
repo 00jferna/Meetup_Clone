@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Venue.hasMany(models.Event, {
-        foreignKey: "venueid",
+        foreignKey: "venueId",
       });
     }
   }
@@ -67,6 +67,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Venue",
+      scopes: {
+        newVenue: {
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      },
     }
   );
   return Venue;

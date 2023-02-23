@@ -19,11 +19,11 @@ module.exports = {
           type: Sequelize.ENUM("member", "waitlist", "pending"),
           allowNull: false,
         },
-        userid: {
+        userId: {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        eventid: {
+        eventId: {
           type: Sequelize.INTEGER,
           allowNull: false,
         },

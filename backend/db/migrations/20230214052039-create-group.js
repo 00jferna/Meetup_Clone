@@ -15,7 +15,7 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        organizerid: {
+        organizerId: {
           type: Sequelize.INTEGER,
           allowNull: false,
           defaultValue: 1,
