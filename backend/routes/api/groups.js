@@ -99,7 +99,7 @@ router.get("/:groupId", async (req, res) => {
       {
         model: Event,
         attributes: [],
-        include: [{ model: Venue, as: 'Venues', attributes: [] }],
+        include: [{ model: Venue, as: "Venues", attributes: [] }],
       },
     ],
     group: [
@@ -246,25 +246,14 @@ router.get("/:groupId/venues", restoreUser, requireAuth, async (req, res) => {
   const id = req.params.groupId;
   const userId = req.user.id;
 
-  const group = await Group.findByPk(id);
-
   if (!group) {
     returnMsg.message = "Group couldn't be found";
     returnMsg.statusCode = 404;
     return res.status(404).json(returnMsg);
   }
   if (userId) {
-    const venues = await Group.findAll({
-      where: { id },
-      attributes: [],
-      include: {
-        model: Event,
-        attributes: [],
-        include: {
-          model: Venue,
-          as: "Venues",
-        },
-      },
+    const venues = await Venue.findAll({
+      where: { groupId: id },
     });
     return res.status(200).json(venues);
   } else {
