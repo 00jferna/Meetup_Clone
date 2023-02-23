@@ -13,17 +13,17 @@ module.exports = {
       [
         {
           url: "../../../frontend/assets/pic001.jpg",
-          groupid: 1,
+          groupId: 1,
           preview: true,
         },
         {
           url: "../../../frontend/assets/pic002.jpg",
-          groupid: 2,
+          groupId: 2,
           preview: false,
         },
         {
           url: "../../../frontend/assets/pic003.jpg",
-          groupid: 3,
+          groupId: 3,
           preview: true,
         },
       ],
@@ -37,7 +37,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        groupid: { [Op.in]: [1, 2, 3] },
+        groupId: { [Op.in]: [1, 2, 3] },
       },
       {}
     );

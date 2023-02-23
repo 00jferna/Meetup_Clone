@@ -9,33 +9,30 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Event.belongsTo(models.Group, { as: "Group", foreignKey: "groupid" });
+      Event.belongsTo(models.Group, { as: "Group", foreignKey: "groupId" });
 
-      Event.belongsTo(models.Venue, {
-        foreignKey: "venueid",
+      Event.belongsTo(models.Venue, { as: "Venues",
+        foreignKey: "venueId",
       });
 
       Event.hasMany(models.Attendance, {
-        foreignKey: "eventid",
+        foreignKey: "eventId",
       });
 
       Event.hasMany(models.EventImage, {
-        foreignKey: "eventid",
+        foreignKey: "eventId",
       });
     }
   }
   Event.init(
     {
-      groupid: {
+      groupId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      venueid: {
+      venueId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        validate: {
-          customValidation(value) {},
-        },
       },
       name: {
         type: DataTypes.STRING,

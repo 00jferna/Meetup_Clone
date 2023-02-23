@@ -12,8 +12,8 @@ module.exports = {
       options,
       [
         {
-          groupid: 1,
-          venueid: 1,
+          groupId: 1,
+          venueId: 1,
           name: "group1event1",
           description: "This event is for group1",
           type: "Online",
@@ -23,8 +23,8 @@ module.exports = {
           endDate: "2023-05-01 15:00:00",
         },
         {
-          groupid: 2,
-          venueid: 1,
+          groupId: 2,
+          venueId: 1,
           name: "group1event1",
           description: "This event is for group2",
           type: "In person",
@@ -34,8 +34,8 @@ module.exports = {
           endDate: "2023-05-05 15:00:00",
         },
         {
-          groupid: 3,
-          venueid: 1,
+          groupId: 3,
+          venueId: 1,
           name: "group1event1",
           description: "This event is for group3",
           type: "In person",
@@ -45,8 +45,8 @@ module.exports = {
           endDate: "2023-04-05 15:00:00",
         },
         {
-          groupid: 1,
-          venueid: 1,
+          groupId: 1,
+          venueId: 1,
           name: "group2event1",
           description: "This event is for group1",
           type: "Online",
@@ -56,8 +56,8 @@ module.exports = {
           endDate: "2023-07-01 15:00:00",
         },
         {
-          groupid: 2,
-          venueid: 1,
+          groupId: 2,
+          venueId: 1,
           name: "group2event1",
           description: "This event is for group2",
           type: "In person",
@@ -67,8 +67,8 @@ module.exports = {
           endDate: "2023-07-05 15:00:00",
         },
         {
-          groupid: 3,
-          venueid: 1,
+          groupId: 3,
+          venueId: 1,
           name: "group2event1",
           description: "This event is for group3",
           type: "In person",
@@ -88,7 +88,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        groupid: { [Op.in]: [1, 2, 3] },
+        groupId: { [Op.in]: [1, 2, 3] },
       },
       {}
     );

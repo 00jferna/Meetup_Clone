@@ -19,12 +19,17 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        userid: {
+        userId: {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        groupid: {
+ dev
+        groupId: {
           type: Sequelize.INTEGER,
+
+        groupId: {
+          type: Sequelize.STRING,
+ main
           allowNull: false,
         },
         createdAt: {
