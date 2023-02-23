@@ -18,7 +18,7 @@ const returnMsg = {};
 
 // Edit a Venue specified by its id
 router.put("/:venueId", restoreUser, requireAuth, async (req, res) => {
-  const id = req.params.venueId;
+  const id = +req.params.venueId;
   const userid = req.user.id;
   const { address, city, state, lat, lng } = req.body;
 
@@ -30,19 +30,22 @@ router.put("/:venueId", restoreUser, requireAuth, async (req, res) => {
   }
 
   const group = await Group.findAll({
-    where:{
-      organizerid:userid
+    where: {
+      organizerId: userid,
     },
-    include:{
+    include: {
       model: Event,
-      include:{
-        model: Venue, as: "Venues",
-      }
-    }
-  })
+    },
+  });
 
-  console.log(group[0].Events[0].Venues)
-  if (id === group){
+  const eventArr = [];
+  group.forEach((element) => {
+    element.Events.forEach((event) => {
+      eventArr.push(event.venueId);
+    });
+  });
+
+  if (eventArr.includes(id)) {
     const updates = await venue.update({
       address,
       city,
