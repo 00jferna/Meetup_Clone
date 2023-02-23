@@ -23,7 +23,7 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        groupid: {
+        groupId: {
           type: Sequelize.STRING(30),
           allowNull: false,
         },
