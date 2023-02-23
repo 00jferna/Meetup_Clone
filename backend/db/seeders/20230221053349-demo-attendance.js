@@ -13,48 +13,48 @@ module.exports = {
       [
         {
           status: "member",
-          userid: 2,
-          eventid: 1,
+          userId: 2,
+          eventId: 1,
         },
         {
           status: "waitlist",
-          userid: 3,
-          eventid: 1,
+          userId: 3,
+          eventId: 1,
         },
         {
           status: "pending",
-          userid: 4,
-          eventid: 1,
+          userId: 4,
+          eventId: 1,
         },
         {
           status: "member",
-          userid: 2,
-          eventid: 2,
+          userId: 2,
+          eventId: 2,
         },
         {
           status: "waitlist",
-          userid: 3,
-          eventid: 2,
+          userId: 3,
+          eventId: 2,
         },
         {
           status: "pending",
-          userid: 4,
-          eventid: 2,
+          userId: 4,
+          eventId: 2,
         },
         {
           status: "member",
-          userid: 2,
-          eventid: 3,
+          userId: 2,
+          eventId: 3,
         },
         {
           status: "waitlist",
-          userid: 3,
-          eventid: 3,
+          userId: 3,
+          eventId: 3,
         },
         {
           status: "pending",
-          userid: 4,
-          eventid: 3,
+          userId: 4,
+          eventId: 3,
         },
       ],
       {}
@@ -67,7 +67,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        eventid: { [Op.in]: [1, 2, 3] },
+        eventId: { [Op.in]: [1, 2, 3] },
       },
       {}
     );
