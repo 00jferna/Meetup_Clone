@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       lat: {
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT,
         validate: {
           customValidation(value) {
             if (Math.abs(value) > 90) {
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       lng: {
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT,
         validate: {
           customValidation(value) {
             if (Math.abs(value) > 180) {
