@@ -8,14 +8,14 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     options.tableName = "Memberships";
-    await queryInterface.changeColumn(options, "groupid", {
+    await queryInterface.changeColumn(options, "groupId", {
       type: Sequelize.INTEGER,
     });
   },
 
   down: async (queryInterface, Sequelize) => {
     options.tableName = "Memberships";
-    await queryInterface.changeColumn(options, "groupid", {
+    await queryInterface.changeColumn(options, "groupId", {
       type: Sequelize.STRING(30),
     });
   },

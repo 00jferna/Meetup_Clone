@@ -19,11 +19,11 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        userid: {
+        userId: {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        groupid: {
+        groupId: {
           type: Sequelize.STRING,
           allowNull: false,
         },
