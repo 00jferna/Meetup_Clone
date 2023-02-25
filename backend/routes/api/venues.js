@@ -19,7 +19,7 @@ const returnMsg = {};
 // Edit a Venue specified by its id
 router.put("/:venueId", restoreUser, requireAuth, async (req, res) => {
   const id = +req.params.venueId;
-  const userid = req.user.id;
+  const userId = req.user.id;
   const { address, city, state, lat, lng } = req.body;
 
   const venue = await Venue.findByPk(id);
@@ -29,30 +29,26 @@ router.put("/:venueId", restoreUser, requireAuth, async (req, res) => {
     return res.status(404).json(returnMsg);
   }
 
-  const group = await Group.findAll({
+  const group = await Group.findByPk(venue.groupId);
+  
+  const user = await Membership.findOne({
     where: {
-      organizerId: userid,
-    },
-    include: {
-      model: Event,
+      userId,
+      groupId: group.id,
     },
   });
 
-  const eventArr = [];
-  group.forEach((element) => {
-    element.Events.forEach((event) => {
-      eventArr.push(event.venueId);
-    });
-  });
-
-  if (eventArr.includes(id)) {
-    const updates = await venue.update({
+  if (user.status === "co-host" || group.organizerId === userId) {
+    await venue.update({
       address,
       city,
       state,
       lat,
       lng,
     });
+
+    const updates = await Venue.scope("newVenue").findByPk(id);
+
     return res.status(200).json(updates);
   } else {
     returnMsg.message = "Forbidden";

@@ -3,7 +3,9 @@ const {
   Group,
   User,
   Membership,
+  Attendance,
   Groupimage,
+  EventImage,
   Venue,
   Event,
   Sequelize,
@@ -39,7 +41,7 @@ router.get("/", async (req, res) => {
     group: ["Group.id", "Groupimages.url"],
   });
 
-  return res.status(200).json(groups);
+  return res.status(200).json({ Groups: groups });
 });
 
 // Get all Groups joined or organized by the Current User
@@ -67,7 +69,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
     group: ["Group.id", "Groupimages.url"],
   });
 
-  return res.status(200).json(groups);
+  return res.status(200).json({ Groups: groups });
 });
 
 // Get details of a Group from an id
@@ -97,9 +99,7 @@ router.get("/:groupId", async (req, res) => {
       },
       { model: Groupimage, attributes: ["id", "url", "preview"] },
       {
-        model: Event,
-        attributes: [],
-        include: [{ model: Venue, as: "Venues", attributes: [] }],
+        model: Venue,
       },
     ],
     group: [
@@ -121,11 +121,53 @@ router.get("/:groupId", async (req, res) => {
 
 // Get all Events of a Group specified by its id
 router.get("/:groupId/events", async (req, res) => {
-  const id = req.params.groupId;
-  const groups = await Group.findOne();
+  const groupId = req.params.groupId;
 
-  if (groups.id) {
-    return res.status(200).json(groups);
+  const events = await Event.findAll({
+    where: {
+      groupId,
+    },
+    attributes: [
+      "id",
+      "groupId",
+      "venueId",
+      "name",
+      "type",
+      "startDate",
+      "endDate",
+      [
+        Sequelize.fn("COUNT", Sequelize.col("Attendances.userId")),
+        "numAttending",
+      ],
+      [Sequelize.col("Group.Groupimages.url"), "previewImage"],
+    ],
+    include: [
+      {
+        model: Group,
+        as: "Group",
+        attributes: ["id", "name", "city", "state"],
+        include: [
+          {
+            model: Groupimage,
+            where: {
+              preview: true,
+            },
+            attributes: [],
+          },
+        ],
+      },
+      {
+        model: Venue,
+        as: "Venue",
+        attributes: ["id", "city", "state"],
+      },
+      { model: Attendance, attributes: [] },
+    ],
+    group: ["Event.id", "Group.id", "Venue.id", "Group.Groupimages.url"],
+  });
+
+  if (events) {
+    return res.status(200).json({ Events: events });
   } else {
     returnMsg.message = "Group couldn't be found";
     returnMsg.statusCode = 404;
@@ -177,7 +219,7 @@ router.post("/:groupId/images", restoreUser, requireAuth, async (req, res) => {
     });
 
     const newImg = await Groupimage.scope("newImage").findByPk(createdImg.id);
-    if (newImg) {
+    if (newImg.id) {
       return res.status(200).json(newImg);
     }
   } else {
@@ -246,16 +288,25 @@ router.get("/:groupId/venues", restoreUser, requireAuth, async (req, res) => {
   const id = req.params.groupId;
   const userId = req.user.id;
 
+  const group = await Group.findByPk(id);
+
   if (!group) {
     returnMsg.message = "Group couldn't be found";
     returnMsg.statusCode = 404;
     return res.status(404).json(returnMsg);
   }
-  if (userId) {
+  const user = await Membership.findOne({
+    where: {
+      userId,
+      groupId: id,
+    },
+  });
+
+  if (user.status === "co-host" || group.organizerId === userId) {
     const venues = await Venue.findAll({
       where: { groupId: id },
     });
-    return res.status(200).json(venues);
+    return res.status(200).json({ Venues: venues });
   } else {
     returnMsg.message = "Forbidden";
     returnMsg.statusCode = 403;
@@ -276,7 +327,14 @@ router.post("/:groupId/venues", restoreUser, requireAuth, async (req, res) => {
     returnMsg.statusCode = 404;
     return res.status(404).json(returnMsg);
   }
-  if (userId === group.organizerId) {
+  const user = await Membership.findOne({
+    where: {
+      userId,
+      groupId: id,
+    },
+  });
+
+  if (user.status === "co-host" || group.organizerId === userId) {
     const createdVenue = await Venue.create({
       groupId: id,
       address,
@@ -332,7 +390,7 @@ router.post("/:groupId/events", restoreUser, requireAuth, async (req, res) => {
       endDate,
     });
 
-    const newEvent = await Event.findByPk(createdEvent.id);
+    const newEvent = await Event.scope("newEvent").findByPk(createdEvent.id);
     if (newEvent) {
       return res.status(200).json(newEvent);
     }
