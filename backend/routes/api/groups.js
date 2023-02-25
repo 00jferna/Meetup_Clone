@@ -109,6 +109,7 @@ router.get("/:groupId", async (req, res) => {
       "Groupimages.id",
       "Groupimages.url",
       "Groupimages.preview",
+      "Venues.id"
     ],
   });
   if (groups.id) {
