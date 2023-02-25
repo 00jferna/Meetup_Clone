@@ -21,14 +21,14 @@ router.get("/", async (req, res) => {
   const events = await Event.findAll({
     attributes: [
       "id",
-      "groupid",
-      "venueid",
+      "groupId",
+      "venueId",
       "name",
       "type",
       "startDate",
       "endDate",
       [
-        Sequelize.fn("COUNT", Sequelize.col("Attendances.userid")),
+        Sequelize.fn("COUNT", Sequelize.col("Attendances.userId")),
         "numAttending",
       ],
       [Sequelize.col("Group.Groupimages.url"), "previewImage"],
@@ -50,14 +50,15 @@ router.get("/", async (req, res) => {
       },
       {
         model: Venue,
-        as: "Venues",
+        as: "Venue",
+        attributes: ["id", "city", "state"],
       },
       { model: Attendance, attributes: [] },
     ],
-    group: ["Event.id", "Group.id", "Venues.id", "Group.Groupimages.url"],
+    group: ["Event.id", "Group.id", "Venue.id", "Group.Groupimages.url"],
   });
 
-  return res.status(200).json(events);
+  return res.status(200).json({ Events: events });
 });
 
 module.exports = router;
