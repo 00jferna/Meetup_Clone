@@ -11,9 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Event.belongsTo(models.Group, { as: "Group", foreignKey: "groupId" });
 
-      Event.belongsTo(models.Venue, { as: "Venues",
-        foreignKey: "venueId",
-      });
+      Event.belongsTo(models.Venue, { as: "Venue", foreignKey: "venueId" });
 
       Event.hasMany(models.Attendance, {
         foreignKey: "eventId",
@@ -105,6 +103,13 @@ module.exports = (sequelize, DataTypes) => {
       defaultScope: {
         attributes: {
           exclude: ["description", "createdAt", "updatedAt"],
+        },
+      },
+      scopes: {
+        newEvent: {
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
         },
       },
     }

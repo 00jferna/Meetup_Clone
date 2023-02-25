@@ -23,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          isIn: {
+            args: [["co-host", "member", "pending"]],
+            msg: "Status must be 'co-host', 'member', or 'pending'",
+          },
+        },
       },
       userId: {
         type: DataTypes.INTEGER,
