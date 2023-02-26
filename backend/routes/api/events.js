@@ -31,20 +31,20 @@ router.get("/", async (req, res) => {
       [
         Sequelize.literal(`(
             SELECT COUNT(*)
-            FROM Attendances
+            FROM Attendance
             WHERE
-                Attendances.eventId = Event.id
+                Attendance.eventId = Event.id
         )`),
         "numAttending",
       ],
       [
         Sequelize.literal(`(
             SELECT url
-            FROM EventImages
+            FROM EventImage
             WHERE
-                EventImages.preview = true
+                EventImage.preview = true
                 AND
-                EventImages.eventId = Event.id
+                EventImage.eventId = Event.id
         )`),
         "previewImage",
       ],
@@ -94,9 +94,9 @@ router.get("/:eventId", async (req, res) => {
       [
         Sequelize.literal(`(
             SELECT COUNT(*)
-            FROM Attendances
+            FROM Attendance
             WHERE
-                Attendances.eventId = Event.id
+                Attendance.eventId = Event.id
         )`),
         "numAttending",
       ],
