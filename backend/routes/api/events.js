@@ -31,20 +31,20 @@ router.get("/", async (req, res) => {
       [
         Sequelize.literal(`(
             SELECT COUNT(*)
-            FROM Attendances
+            FROM meetup_clone.Attendances
             WHERE
-                Attendance.eventId = Event.id
+              Attendances.eventId = Event.id
         )`),
         "numAttending",
       ],
       [
         Sequelize.literal(`(
             SELECT url
-            FROM EventImages
+            FROM meetup_clone.EventImages
             WHERE
-                EventImage.preview = true
+                EventImages.preview = true
                 AND
-                EventImage.eventId = Event.id
+                EventImages.eventId = Event.id
         )`),
         "previewImage",
       ],
@@ -57,9 +57,7 @@ router.get("/", async (req, res) => {
         include: {
           model: Event,
           attributes: [],
-          include: [
-            { model: EventImage, attributes: []},
-          ],
+          include: [{ model: EventImage, attributes: [] }],
         },
       },
       { model: Attendance, attributes: [] },
@@ -96,7 +94,7 @@ router.get("/:eventId", async (req, res) => {
             SELECT COUNT(*)
             FROM Attendances
             WHERE
-                Attendance.eventId = Event.id
+                Attendances.eventId = Event.id
         )`),
         "numAttending",
       ],
