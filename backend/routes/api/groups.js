@@ -84,7 +84,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
                 "Groupimage"."preview" = true
               AND
                 "Groupimage"."groupId" = "Group"."id"
-            GROUP BY "Groupimage"."url"
+            GROUP BY "Groupimage"."groupId"
         )`),
         "previewImage",
       ],
