@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "groupId",
       });
 
-      Membership.belongsTo(models.User, {as:"memberId",
+      Membership.belongsTo(models.User, {
+        as: "memberId",
         foreignKey: "userId",
       });
     }
@@ -49,9 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       scopes: {
         newMembership: {
-          attributes: {
-            exclude: ["userId", "groupId", "createdAt", "updatedAt"],
-          },
+          attributes: ["status", "id"],
         },
         updatedMembership: {
           attributes: {

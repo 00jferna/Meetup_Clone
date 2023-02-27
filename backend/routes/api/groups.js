@@ -10,6 +10,7 @@ const {
   Event,
   Sequelize,
 } = require("../../db/models");
+const membership = require("../../db/models/membership");
 
 const { restoreUser, requireAuth } = require("../../utils/auth");
 
@@ -235,7 +236,7 @@ router.get("/:groupId/events", async (req, res) => {
         as: "Venue",
         attributes: ["id", "city", "state"],
       },
-      { model: Attendance, attributes: [] },
+      
     ],
     group: ["Event.id", "Group.id", "Venue.id"],
   });
@@ -508,7 +509,7 @@ router.get("/:groupId/members", restoreUser, requireAuth, async (req, res) => {
       include: {
         model: Membership,
         where: { groupId },
-        attributes: ["status"],
+        attributes: "status",
       },
     });
     return res.status(200).json({ Members: memberList });
@@ -535,14 +536,13 @@ router.post(
       returnMsg.statusCode = 404;
       return res.status(404).json(returnMsg);
     }
-
     const currentMembeship = await Membership.findOne({
       where: {
         userId,
         groupId,
       },
     });
-
+    
     if (!currentMembeship) {
       const createdMembership = await Membership.create({
         userId,
@@ -560,7 +560,7 @@ router.post(
       returnMsg.message = "Membership has already been requested";
       returnMsg.statusCode = 400;
       return res.status(403).json(returnMsg);
-    } else if (currentMembeship.status === "member") {
+    } else if (currentMembeship.status === "member"||currentMembeship.status === "co-host") {
       returnMsg.message = "User is already a member of the group";
       returnMsg.statusCode = 400;
       return res.status(403).json(returnMsg);
@@ -604,7 +604,7 @@ router.put(
       returnMsg.statusCode = 404;
       return res.status(403).json(returnMsg);
     }
-    console.log(member, userId, user.status);
+    console.log(member, user);
     if (
       member.status === "pending" &&
       (user.status === "co-host" || userId === group.organizerId)
