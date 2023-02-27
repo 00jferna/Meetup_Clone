@@ -17,6 +17,11 @@ const router = express.Router();
 
 const returnMsg = {};
 
+let schema;
+if (process.env.NODE_ENV === "production") {
+  schema = process.env.SCHEMA; // define your schema in options object
+}
+
 // Get all Groups
 router.get("/", async (req, res) => {
   const groups = await Group.findAll({
@@ -59,8 +64,30 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
       "state",
       "createdAt",
       "updatedAt",
-      [Sequelize.fn("COUNT", Sequelize.col("Memberships.id")), "numMembers"],
-      [Sequelize.col("Groupimages.url"), "previewImage"],
+      [
+        Sequelize.literal(`(
+            SELECT COUNT(*)
+            FROM ${schema ? `"${schema}"."Memberships"` : "Memberships"}
+            AS "Membership"
+            WHERE
+              "Membership"."groupId" = "Group"."id"
+            GROUP BY "Group.Id"
+        )`),
+        "numAttending",
+      ],
+      [
+        Sequelize.literal(`(
+            SELECT url
+            FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"} 
+            AS "Groupimage"
+            WHERE
+                "Groupimage"."preview" = true
+              AND
+                "Groupimage"."groupId" = "Group"."id"
+            GROUP BY "Groupimage"."url"
+        )`),
+        "previewImage",
+      ],
     ],
     include: [
       { model: Membership, where: { userId: organizerId }, attributes: [] },
@@ -88,7 +115,17 @@ router.get("/:groupId", async (req, res) => {
       "state",
       "createdAt",
       "updatedAt",
-      [Sequelize.fn("COUNT", Sequelize.col("Memberships.id")), "numMembers"],
+      [
+        Sequelize.literal(`(
+            SELECT COUNT(*)
+            FROM ${schema ? `"${schema}"."Memberships"` : "Memberships"}
+            AS "Membership"
+            WHERE
+              "Membership"."groupId" = "Group"."id"
+            GROUP BY "Group.Id"
+        )`),
+        "numAttending",
+      ],
     ],
     include: [
       { model: Membership, attributes: [] },
@@ -146,10 +183,29 @@ router.get("/:groupId/events", async (req, res) => {
       "startDate",
       "endDate",
       [
-        Sequelize.fn("COUNT", Sequelize.col("Attendances.userId")),
+        Sequelize.literal(`(
+            SELECT COUNT(*)
+            FROM ${schema ? `"${schema}"."Attendances"` : "Attendances"}
+            AS "Attendance"
+            WHERE
+              "Attendance"."eventId" = "Event"."id"
+            GROUP BY "Event.eventId"
+        )`),
         "numAttending",
       ],
-      [Sequelize.col("Group.Groupimages.url"), "previewImage"],
+      [
+        Sequelize.literal(`(
+            SELECT url
+            FROM ${schema ? `"${schema}"."EventImages"` : "EventImages"} 
+            AS "EventImage"
+            WHERE
+                "EventImage"."preview" = true
+              AND
+                "EventImage"."eventId" = "Event"."id"
+            GROUP BY "EventImage"."url"
+        )`),
+        "previewImage",
+      ],
     ],
     include: [
       {
@@ -176,7 +232,7 @@ router.get("/:groupId/events", async (req, res) => {
     group: ["Event.id", "Group.id", "Venue.id", "Group.Groupimages.url"],
   });
 
-  if (events.id) {
+  if (events) {
     return res.status(200).json({ Events: events });
   } else {
     returnMsg.message = `There are no Events for ${group.name}`;
@@ -204,7 +260,7 @@ router.post("/", restoreUser, requireAuth, async (req, res) => {
     userId: organizerId,
     groupId: group.id,
   });
-  const newGroup = await Group.scope("newGroup").findByPk(group.id)
+  const newGroup = await Group.scope("newGroup").findByPk(group.id);
   return res.status(201).json(newGroup);
 });
 
@@ -260,8 +316,8 @@ router.put("/:groupId", restoreUser, requireAuth, async (req, res) => {
       city,
       state,
     });
-
-    return res.status(200).json(updates);
+    const updatedGroup = await Group.scope("updatedGroup").findByPk(updates.id);
+    return res.status(200).json(updatedGroup);
   } else {
     returnMsg.message = "Forbidden";
     returnMsg.statusCode = 403;
@@ -608,7 +664,8 @@ router.delete(
 
     if (
       member.id === user.id ||
-      user.status === "co-host" || userId === group.organizerId
+      user.status === "co-host" ||
+      userId === group.organizerId
     ) {
       await member.destroy();
 

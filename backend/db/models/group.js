@@ -117,12 +117,12 @@ module.exports = (sequelize, DataTypes) => {
       scopes: {
         newGroup: {
           attributes: {
-            exclude: ["id","organizerId", "createdAt", "updatedAt"],
+            exclude: [],
           },
         },
-        updatedMembership: {
+        updatedGroup: {
           attributes: {
-            exclude: ["id", "groupId", "createdAt", "updatedAt"],
+            exclude: [],
           },
         },
       },
