@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           customValidation(value) {
-            if (value !== true || value !== false) {
+            if (value !== true && value !== false) {
               throw new Error("preview must be a boolean");
             }
           },
@@ -44,6 +44,18 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "EventImage",
+      defaultScope: {
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      },
+      scopes: {
+        newImage: {
+          attributes: {
+            exclude: ["eventId", "createdAt", "updatedAt"],
+          },
+        },
+      },
     }
   );
   return EventImage;

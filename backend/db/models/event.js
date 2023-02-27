@@ -111,6 +111,11 @@ module.exports = (sequelize, DataTypes) => {
             exclude: ["createdAt", "updatedAt"],
           },
         },
+        updatedEvent: {
+          attributes: {
+            exclude: ["id","groupId","createdAt", "updatedAt"],
+          },
+        },
       },
     }
   );
