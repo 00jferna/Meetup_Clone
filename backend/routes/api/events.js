@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
             FROM ${schema ? `"${schema}"."Attendances"`:"Attendances"} AS "Attendance"
             WHERE
               "Attendance"."eventId" = "Event"."id"
-            GROUP BY "Attendance"."eventId"
+            GROUP BY "Event"."id"
         )`),
         "numAttending",
       ],
@@ -51,7 +51,7 @@ router.get("/", async (req, res) => {
                 "EventImage"."preview" = true
               AND
                 "EventImage"."eventId" = "Event"."id"
-            GROUP BY "EventImage"."eventId"
+            GROUP BY "EventImage"."url"
         )`),
         "previewImage",
       ],
