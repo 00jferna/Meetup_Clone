@@ -37,7 +37,7 @@ router.get("/", async (req, res) => {
         Sequelize.literal(`(
             SELECT COUNT(*) 
             FROM ${schema ? `"${schema}"."Attendances"`:"Attendances"} AS "Attendance"
-           
+            
         )`),
         "numAttending",
       ],
@@ -45,10 +45,7 @@ router.get("/", async (req, res) => {
         Sequelize.literal(`(
             SELECT url
             FROM ${schema ? `"${schema}"."EventImages"`:"EventImages"} AS "EventImage"
-            WHERE
-                "EventImage"."preview" = true
-                AND
-                "EventImage"."eventId" = "Event"."id"
+            
         )`),
         "previewImage",
       ],
