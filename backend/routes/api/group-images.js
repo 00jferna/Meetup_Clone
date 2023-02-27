@@ -28,8 +28,14 @@ router.delete("/:imageId", restoreUser, requireAuth, async (req, res) => {
     returnMsg.statusCode = 404;
     return res.status(404).json(returnMsg);
   }
-
   const group = await Group.findByPk(groupImage.groupId);
+  
+  if (!group) {
+    returnMsg.message = "Group couldn't be found";
+    returnMsg.statusCode = 404;
+    return res.status(404).json(returnMsg);
+  }
+
   const user = await Membership.findOne({
     where: {
       userId,

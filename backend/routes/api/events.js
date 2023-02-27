@@ -66,15 +66,13 @@ router.get("/", async (req, res) => {
         as: "Group",
         attributes: ["id", "name", "city", "state"],
       },
-      
-      { model: Attendance, attributes: [] },
       {
         model: Venue,
         as: "Venue",
         attributes: ["id", "city", "state"],
       },
     ],
-    group: ["Event.id"],
+    group: ["Event.id", "Group.id", "Venue.id"],
   };
 
   if (req.query.name || req.query.type || req.query.startDate) query.where = {};
@@ -457,14 +455,14 @@ router.put(
         eventId,
       },
     });
-    console.log(member, userId);
+    
     if (!member) {
       returnMsg.message =
         "Attendance between the user and the event does not exist";
       returnMsg.statusCode = 404;
       return res.status(403).json(returnMsg);
     }
-    console.log(member, user_Id, user.status);
+    
     if (
       member.status === "pending" &&
       (user.status === "co-host" || user_Id === group.organizerId)
