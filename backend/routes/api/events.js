@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
             AS "Attendance"
             WHERE
               "Attendance"."eventId" = "Event"."id"
-            GROUP BY "Attendance"."id"
+            GROUP BY "Attendance"."eventId"
         )`),
         "numAttending",
       ],
@@ -119,7 +119,7 @@ router.get("/:eventId", async (req, res) => {
             AS "Attendance"
             WHERE
                 "Attendance"."eventId" = "Event"."id"
-            GROUP BY "Attendance"."id"
+            GROUP BY "Attendance"."eventId"
         )`),
         "numAttending",
       ],

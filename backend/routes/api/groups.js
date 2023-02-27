@@ -38,6 +38,30 @@ router.get("/", async (req, res) => {
       "updatedAt",
       [Sequelize.fn("COUNT", Sequelize.col("Memberships.id")), "numMembers"],
       [Sequelize.col("Groupimages.url"), "previewImage"],
+      [
+        Sequelize.literal(`(
+            SELECT COUNT(*)
+            FROM ${schema ? `"${schema}"."Memberships"` : "Memberships"}
+            AS "Membership"
+            WHERE
+              "Membership"."groupId" = "Group"."id"
+            GROUP BY "Membership"."groupId"
+        )`),
+        "numAttending",
+      ],
+      [
+        Sequelize.literal(`(
+            SELECT url
+            FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"} 
+            AS "Groupimage"
+            WHERE
+                "Groupimage"."preview" = true
+              AND
+                "Groupimage"."groupId" = "Group"."id"
+            GROUP BY "Groupimage"."url"
+        )`),
+        "previewImage",
+      ],
     ],
     include: [
       { model: Membership, attributes: [] },
@@ -98,7 +122,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
 // Get details of a Group from an id
 router.get("/:groupId", async (req, res) => {
   const id = req.params.groupId;
-  const groups = await Group.findByPk(id,{
+  const groups = await Group.findByPk(id, {
     attributes: [
       "id",
       "organizerId",
@@ -112,13 +136,13 @@ router.get("/:groupId", async (req, res) => {
       "updatedAt",
       [
         Sequelize.literal(`(
-            SELECT COUNT(*)
-            FROM ${schema ? `"${schema}"."Memberships"` : "Memberships"}
-            AS "Membership"
-            WHERE
-              "Membership"."groupId" = "Group"."id"
-            GROUP BY "Membership"."groupId"
-        )`),
+          SELECT COUNT(*)
+          FROM ${schema ? `"${schema}"."Memberships"` : "Memberships"}
+          AS "Membership"
+          WHERE
+            "Membership"."groupId" = "Groups"."id"
+          GROUP BY "Membership"."groupId"
+          )`),
         "numMembers",
       ],
     ],
