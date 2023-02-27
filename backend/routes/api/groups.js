@@ -36,8 +36,6 @@ router.get("/", async (req, res) => {
       "state",
       "createdAt",
       "updatedAt",
-      [Sequelize.fn("COUNT", Sequelize.col("Memberships.id")), "numMembers"],
-      [Sequelize.col("Groupimages.url"), "previewImage"],
       [
         Sequelize.literal(`(
             SELECT COUNT(*)
@@ -47,7 +45,7 @@ router.get("/", async (req, res) => {
               "Membership"."groupId" = "Group"."id"
             GROUP BY "Membership"."groupId"
         )`),
-        "numAttending",
+        "numMembers",
       ],
       [
         Sequelize.literal(`(
