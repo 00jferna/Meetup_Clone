@@ -115,10 +115,11 @@ router.get("/:eventId", async (req, res) => {
       [
         Sequelize.literal(`(
             SELECT COUNT(*)
-            FROM "Attendances"
+            FROM ${schema ? `"${schema}"."Attendances"` : "Attendances"}
+            AS "Attendance"
             WHERE
                 "Attendances"."eventId" = "Event"."id"
-            GROUP BY "Attendances"."eventId"
+            GROUP BY "Attendances"."id"
         )`),
         "numAttending",
       ],
