@@ -75,20 +75,20 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
         )`),
         "numAttending",
       ],
-      [
-        Sequelize.literal(`(
-            SELECT url
-            FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"} 
-            AS "Groupimage"
-            WHERE
-                "Groupimage"."preview" = true
-              AND
-                "Groupimage"."groupId" = "Group"."id"
-            GROUP BY "Groupimage"."id"
-            LIMIT 1
-        )`),
-        "previewImage",
-      ],
+      // [
+      //   Sequelize.literal(`(
+      //       SELECT url
+      //       FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"} 
+      //       AS "Groupimage"
+      //       WHERE
+      //           "Groupimage"."preview" = true
+      //         AND
+      //           "Groupimage"."groupId" = "Group"."id"
+      //       GROUP BY "Groupimage"."id"
+      //       LIMIT 1
+      //   )`),
+      //   "previewImage",
+      // ],
     ],
     include: [
       { model: Membership, where: { userId: organizerId }, attributes: [] },
