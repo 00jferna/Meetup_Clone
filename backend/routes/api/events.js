@@ -1,4 +1,5 @@
 const express = require("express");
+const { DATE } = require("sequelize");
 const {
   Group,
   Event,
@@ -24,7 +25,8 @@ if (process.env.NODE_ENV === "production") {
 
 // Get all Events
 router.get("/", async (req, res) => {
-  const events = await Event.findAll({
+  let query = {
+    where: {},
     attributes: [
       "id",
       "groupId",
@@ -76,8 +78,20 @@ router.get("/", async (req, res) => {
         attributes: ["id", "city", "state"],
       },
     ],
-    group: ["Event.id", "Venue.id", "Attendances.id", "Group.id"],
-  });
+    group: ["Event.id"],
+  };
+
+  if (req.query.name) query.where.name = req.query.name;
+  if (req.query.type) query.where.type = req.query.type;
+  if (req.query.startDate) query.where.startDate = req.query.startDate;
+  const page = req.query.page === undefined ? 1 : parseInt(req.query.page);
+  const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+
+  if (page >= 1 && size >= 1) {
+    query.limit = size;
+    query.offset = size * (page - 1);
+  }
+  const events = await Event.findAll(query);
 
   return res.status(200).json({ Events: events });
 });

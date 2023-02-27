@@ -125,6 +125,14 @@ router.get("/:groupId", async (req, res) => {
 router.get("/:groupId/events", async (req, res) => {
   const groupId = req.params.groupId;
 
+  const group = await Group.findByPk(groupId);
+
+  if (!group) {
+    returnMsg.message = "Group couldn't be found";
+    returnMsg.statusCode = 404;
+    return res.status(404).json(returnMsg);
+  }
+
   const events = await Event.findAll({
     where: {
       groupId,
@@ -168,10 +176,10 @@ router.get("/:groupId/events", async (req, res) => {
     group: ["Event.id", "Group.id", "Venue.id", "Group.Groupimages.url"],
   });
 
-  if (events) {
+  if (events.id) {
     return res.status(200).json({ Events: events });
   } else {
-    returnMsg.message = "Group couldn't be found";
+    returnMsg.message = `There are no Events for ${group.name}`;
     returnMsg.statusCode = 404;
     return res.status(404).json(returnMsg);
   }
