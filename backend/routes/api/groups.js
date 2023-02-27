@@ -71,7 +71,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
             AS "Membership"
             WHERE
               "Membership"."groupId" = "Group"."id"
-            GROUP BY "Membership.Id"
+            GROUP BY "Membership"."id"
         )`),
         "numAttending",
       ],
@@ -122,7 +122,7 @@ router.get("/:groupId", async (req, res) => {
             AS "Membership"
             WHERE
               "Membership"."groupId" = "Group"."id"
-            GROUP BY "Membership.Id"
+            GROUP BY "Membership"."id"
         )`),
         "numAttending",
       ],
@@ -189,7 +189,7 @@ router.get("/:groupId/events", async (req, res) => {
             AS "Attendance"
             WHERE
               "Attendance"."eventId" = "Event"."id"
-            GROUP BY "Attendance.eventId"
+            GROUP BY "Attendance"."eventId"
         )`),
         "numAttending",
       ],

@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
             AS "Attendance"
             WHERE
               "Attendance"."eventId" = "Event"."id"
-            GROUP BY "Event.eventId"
+            GROUP BY "Attendance"."eventId"
         )`),
         "numAttending",
       ],
@@ -115,9 +115,10 @@ router.get("/:eventId", async (req, res) => {
       [
         Sequelize.literal(`(
             SELECT COUNT(*)
-            FROM Attendances
+            FROM "Attendances"
             WHERE
-                Attendances.eventId = Event.id
+                "Attendances"."eventId" = "Event"."id"
+            GROUP BY "Attendances"."eventId"
         )`),
         "numAttending",
       ],
