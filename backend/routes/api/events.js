@@ -39,21 +39,22 @@ router.get("/", async (req, res) => {
             FROM ${schema ? `"${schema}"."Attendances"`:"Attendances"} AS "Attendance"
             WHERE
               "Attendance"."eventId" = "Event"."id"
-              GROUP BY "Event"."id"
+            GROUP BY "Event"."id"
         )`),
         "numAttending",
       ],
-      // [
-      //   Sequelize.literal(`(
-      //       SELECT url
-      //       FROM ${schema ? `"${schema}"."EventImages"`:"EventImages"} AS "EventImage"
-      //       WHERE
-      //           "EventImage"."preview" = true
-      //           AND
-      //           "EventImage"."eventId" = "Event"."id"
-      //   )`),
-      //   "previewImage",
-      // ],
+      [
+        Sequelize.literal(`(
+            SELECT url
+            FROM ${schema ? `"${schema}"."EventImages"`:"EventImages"} AS "EventImage"
+            WHERE
+                "EventImage"."preview" = true
+              AND
+                "EventImage"."eventId" = "Event"."id"
+            GROUP BY "Event"."id"
+        )`),
+        "previewImage",
+      ],
     ],
     include: [
       {
