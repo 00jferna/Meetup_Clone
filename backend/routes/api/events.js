@@ -55,6 +55,7 @@ router.get("/", async (req, res) => {
               AND
                 "EventImage"."eventId" = "Event"."id"
             GROUP BY "EventImage"."url"
+            LIMIT 1
         )`),
         "previewImage",
       ],
@@ -65,7 +66,7 @@ router.get("/", async (req, res) => {
         as: "Group",
         attributes: ["id", "name", "city", "state"],
       },
-      { model: EventImage, attributes: [] },
+      
       { model: Attendance, attributes: [] },
       {
         model: Venue,

@@ -229,15 +229,6 @@ router.get("/:groupId/events", async (req, res) => {
         model: Group,
         as: "Group",
         attributes: ["id", "name", "city", "state"],
-        include: [
-          {
-            model: Groupimage,
-            where: {
-              preview: true,
-            },
-            attributes: [],
-          },
-        ],
       },
       {
         model: Venue,
@@ -246,7 +237,7 @@ router.get("/:groupId/events", async (req, res) => {
       },
       { model: Attendance, attributes: [] },
     ],
-    group: ["Event.id", "Group.id", "Venue.id", "Group.Groupimages.url"],
+    group: ["Event.id", "Group.id", "Venue.id"],
   });
 
   if (events) {
