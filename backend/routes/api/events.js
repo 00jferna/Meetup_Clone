@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
             FROM ${schema ? `"${schema}"."Attendances"`:"Attendances"} AS "Attendance"
             WHERE
               "Attendance"."eventId" = "Event"."id"
-            GROUP BY "Event"."id"
+            GROUP BY "Attendance"."eventId"
         )`),
         "numAttending",
       ],
@@ -51,7 +51,7 @@ router.get("/", async (req, res) => {
                 "EventImage"."preview" = true
               AND
                 "EventImage"."eventId" = "Event"."id"
-            GROUP BY "Event"."id"
+            GROUP BY "EventImage"."url"
         )`),
         "previewImage",
       ],
@@ -74,7 +74,7 @@ router.get("/", async (req, res) => {
         attributes: ["id", "city", "state"],
       },
     ],
-    group: ["Event.id", "Venue.id", "Attendances.id", "Group.id", "EventImage.url"],
+    group: ["Event.id", "Venue.id", "Attendances.id", "Group.id"],
   });
 
   return res.status(200).json({ Events: events });
