@@ -33,18 +33,18 @@ router.get("/", async (req, res) => {
             SELECT COUNT(*)
             FROM "meetup_clone"."Attendances"
             WHERE
-              Attendances.eventId = Event.id
+              "Attendances"."eventId" = "Event"."id"
         )`),
         "numAttending",
       ],
       [
         Sequelize.literal(`(
             SELECT url
-            FROM meetup_clone.EventImages
+            FROM "meetup_clone"."EventImages"
             WHERE
-                EventImages.preview = true
+                "EventImages"."preview" = true
                 AND
-                EventImages.eventId = Event.id
+                "EventImages"."eventId" = "Event"."id"
         )`),
         "previewImage",
       ],
@@ -67,7 +67,7 @@ router.get("/", async (req, res) => {
         attributes: ["id", "city", "state"],
       },
     ],
-    group: ["Event.id", "Venue.id", "Attendances.id"],
+    group: ["Event.id", "Venue.id", "Attendance.id"],
   });
 
   return res.status(200).json({ Events: events });
