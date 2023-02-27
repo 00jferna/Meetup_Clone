@@ -17,6 +17,11 @@ const router = express.Router();
 
 const returnMsg = {};
 
+let schema
+if (process.env.NODE_ENV === "production") {
+  schema = process.env.SCHEMA; // define your schema in options object
+}
+
 // Get all Events
 router.get("/", async (req, res) => {
   const events = await Event.findAll({
@@ -30,8 +35,8 @@ router.get("/", async (req, res) => {
       "endDate",
       [
         Sequelize.literal(`(
-            SELECT count(*)
-            FROM "meetup_clone"."Attendances" AS "Attendance"
+            SELECT COUNT(*)
+            FROM ${schema ? `"${schema}"."Attendances"`:"Attendances"} AS "Attendance"
             WHERE
               "Attendance"."eventId" = "Event"."id"
         )`),
@@ -40,7 +45,7 @@ router.get("/", async (req, res) => {
       [
         Sequelize.literal(`(
             SELECT url
-            FROM "meetup_clone"."EventImages" AS "EventImage"
+            FROM ${schema ? `"${schema}"."EventImages"`:"EventImages"} AS "EventImage"
             WHERE
                 "EventImage"."preview" = true
                 AND
