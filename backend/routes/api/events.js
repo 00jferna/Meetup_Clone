@@ -64,12 +64,8 @@ router.get("/", async (req, res) => {
         model: Group,
         as: "Group",
         attributes: ["id", "name", "city", "state"],
-        include: {
-          model: Event,
-          attributes: [],
-          include: [{ model: EventImage, attributes: [] }],
-        },
       },
+      { model: EventImage, attributes: [] },
       { model: Attendance, attributes: [] },
       {
         model: Venue,
@@ -77,7 +73,7 @@ router.get("/", async (req, res) => {
         attributes: ["id", "city", "state"],
       },
     ],
-    group: ["Event.id", "EventImage.url"],
+    group: ["Event.id"],
   };
 
   if (req.query.name || req.query.type || req.query.startDate) query.where = {};
