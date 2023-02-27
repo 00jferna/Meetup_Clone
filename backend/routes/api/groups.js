@@ -85,6 +85,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
               AND
                 "Groupimage"."groupId" = "Group"."id"
             GROUP BY "Groupimage"."id"
+            LIMIT 1
         )`),
         "previewImage",
       ],
@@ -93,7 +94,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
       { model: Membership, where: { userId: organizerId }, attributes: [] },
       { model: Groupimage, attributes: [] },
     ],
-    group: ["Group.id", "Groupimages.url"],
+    group: ["Group.id"],
   });
 
   return res.status(200).json({ Groups: groups });
