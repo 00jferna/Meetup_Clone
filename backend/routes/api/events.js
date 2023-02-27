@@ -77,7 +77,7 @@ router.get("/", async (req, res) => {
         attributes: ["id", "city", "state"],
       },
     ],
-    group: ["Event.id"],
+    group: ["Event.id", "EventImage.url"],
   };
 
   if (req.query.name || req.query.type || req.query.startDate) query.where = {};
