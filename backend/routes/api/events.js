@@ -35,11 +35,11 @@ router.get("/", async (req, res) => {
       "endDate",
       [
         Sequelize.literal(`(
-            SELECT COUNT(*) 
+            SELECT COUNT(*)
             FROM ${schema ? `"${schema}"."Attendances"`:"Attendances"} AS "Attendance"
             WHERE
               "Attendance"."eventId" = "Event"."id"
-            GROUP BY "Event"."id"
+            GROUP BY "Attendance.eventId"
         )`),
         "numAttending",
       ],
@@ -51,7 +51,7 @@ router.get("/", async (req, res) => {
                 "EventImage"."preview" = true
               AND
                 "EventImage"."eventId" = "Event"."id"
-            GROUP BY "Event"."id"
+            GROUP BY "EventImage"."url"
         )`),
         "previewImage",
       ],
