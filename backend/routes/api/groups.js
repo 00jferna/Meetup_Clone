@@ -77,7 +77,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
       ],
       [
         Sequelize.literal(`(
-            SELECT url
+            SELECT 1 url
             FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"} 
             AS "Groupimage"
             WHERE
