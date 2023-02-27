@@ -118,8 +118,8 @@ router.get("/:eventId", async (req, res) => {
             FROM ${schema ? `"${schema}"."Attendances"` : "Attendances"}
             AS "Attendance"
             WHERE
-                "Attendances"."eventId" = "Event"."id"
-            GROUP BY "Attendances"."id"
+                "Attendance"."eventId" = "Event"."id"
+            GROUP BY "Attendance"."id"
         )`),
         "numAttending",
       ],
