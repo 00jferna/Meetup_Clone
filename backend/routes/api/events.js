@@ -41,14 +41,17 @@ router.get("/", async (req, res) => {
         )`),
         "numAttending",
       ],
-      [
-        Sequelize.literal(`(
-            SELECT url
-            FROM ${schema ? `"${schema}"."EventImages"`:"EventImages"} AS "EventImage"
-            
-        )`),
-        "previewImage",
-      ],
+      // [
+      //   Sequelize.literal(`(
+      //       SELECT url
+      //       FROM ${schema ? `"${schema}"."EventImages"`:"EventImages"} AS "EventImage"
+      //       WHERE
+      //           "EventImage"."preview" = true
+      //           AND
+      //           "EventImage"."eventId" = "Event"."id"
+      //   )`),
+      //   "previewImage",
+      // ],
     ],
     include: [
       {
