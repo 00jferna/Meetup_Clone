@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
       "endDate",
       [
         Sequelize.literal(`(
-            SELECT COUNT(*)
+            SELECT "COUNT(*)"
             FROM "meetup_clone"."Attendances"
             WHERE
               "Attendances"."eventId" = "Event"."id"
