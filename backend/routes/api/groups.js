@@ -117,7 +117,7 @@ router.get("/:groupId", async (req, res) => {
             AS "Membership"
             WHERE
               "Membership"."groupId" = "Group"."id"
-            GROUP BY "Membership"."id"
+            GROUP BY "Membership"."groupId"
         )`),
         "numMembers",
       ],
