@@ -1,7 +1,11 @@
 // backend/routes/api/session.js
 const express = require("express");
 
-const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
+const {
+  setTokenCookie,
+  restoreUser,
+  requireAuth,
+} = require("../../utils/auth");
 const { User } = require("../../db/models");
 
 const { check } = require("express-validator");
@@ -36,9 +40,7 @@ router.post("/", validateLogin, async (req, res, next) => {
 
   await setTokenCookie(res, user);
 
-  return res.json(
-    user,
-  );
+  return res.json({ user: user });
 });
 
 // Log out
