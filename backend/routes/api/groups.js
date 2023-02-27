@@ -69,23 +69,23 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
               AS "Membership"
               WHERE
                 "Membership"."groupId" = "Groups"."id"
-              GROUP BY "Membership"."groupId"
+              GROUP BY "Membership"."id"
               )`),
             "numMembers",
           ],
-          [
-            Sequelize.literal(`(
-              SELECT url
-              FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"}
-              AS "Groupimage"
-              WHERE
-                  "Groupimage"."preview" = true
-                AND
-                  "Groupimage"."groupId" = "Groups"."id"
-              GROUP BY "Groupimage"."id"
-              )`),
-            "previewImage",
-          ],
+          // [
+          //   Sequelize.literal(`(
+          //     SELECT url
+          //     FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"}
+          //     AS "Groupimage"
+          //     WHERE
+          //         "Groupimage"."preview" = true
+          //       AND
+          //         "Groupimage"."groupId" = "Groups"."id"
+          //     GROUP BY "Groupimage"."groupId"
+          //     )`),
+          //   "previewImage",
+          // ],
         ],
         include: { model: Membership, attributes: [] },
       },
@@ -98,8 +98,7 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
 // Get details of a Group from an id
 router.get("/:groupId", async (req, res) => {
   const id = req.params.groupId;
-  const groups = await Group.findOne({
-    where: { id },
+  const groups = await Group.findByPk(id,{
     attributes: [
       "id",
       "organizerId",
@@ -120,7 +119,7 @@ router.get("/:groupId", async (req, res) => {
               "Membership"."groupId" = "Group"."id"
             GROUP BY "Membership"."id"
         )`),
-        "numAttending",
+        "numMembers",
       ],
     ],
     include: [
