@@ -74,7 +74,7 @@ router.get("/", async (req, res) => {
         attributes: ["id", "city", "state"],
       },
     ],
-    group: ["Event.id", "Venue.id", "Attendances.id", "Group.id"],
+    group: ["Event.id", "Venue.id", "Attendances.id", "Group.id", "EventImage.url"],
   });
 
   return res.status(200).json({ Events: events });
