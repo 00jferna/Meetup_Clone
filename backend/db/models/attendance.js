@@ -21,12 +21,12 @@ module.exports = (sequelize, DataTypes) => {
   Attendance.init(
     {
       status: {
-        type: DataTypes.ENUM("member", "waitlist", "pending"),
+        type: DataTypes.ENUM("attending", "waitlist", "pending"),
         allowNull: false,
         validate: {
           isIn: {
-            args: [["member", "waitlist", "pending"]],
-            msg: "Status must be 'member', 'waitlist', or 'pending'",
+            args: [["attending", "waitlist", "pending"]],
+            msg: "Status must be 'attending', 'waitlist', or 'pending'",
           },
         },
       },
@@ -42,6 +42,23 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Attendance",
+      defaultScope: {
+        attributes: {
+          exclude: ["description", "createdAt", "updatedAt"],
+        },
+      },
+      scopes: {
+        newAttendance: {
+          attributes: {
+            exclude: ["id", "eventId", "createdAt", "updatedAt"],
+          },
+        },
+        updatedAttendance: {
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      },
     }
   );
   return Attendance;
