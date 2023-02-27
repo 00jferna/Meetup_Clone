@@ -26,7 +26,6 @@ if (process.env.NODE_ENV === "production") {
 // Get all Events
 router.get("/", async (req, res) => {
   let query = {
-    where: {},
     attributes: [
       "id",
       "groupId",
@@ -81,6 +80,7 @@ router.get("/", async (req, res) => {
     group: ["Event.id"],
   };
 
+  if (req.query.name || req.query.type || req.query.startDate) query.where = {};
   if (req.query.name) query.where.name = req.query.name;
   if (req.query.type) query.where.type = req.query.type;
   if (req.query.startDate) query.where.startDate = req.query.startDate;
@@ -138,7 +138,7 @@ router.get("/:eventId", async (req, res) => {
       },
       { model: Attendance, attributes: [] },
     ],
-    group: ["Event.id", "EventImage.id", "Group.id", "Venue.id" ],
+    group: ["Event.id", "EventImages.id", "Group.id", "Venue.id"],
   });
 
   return res.status(200).json(events);
