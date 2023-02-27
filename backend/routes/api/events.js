@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
       [
         Sequelize.literal(`(
             SELECT COUNT(*)
-            FROM meetup_clone.Attendances
+            FROM "meetup_clone.Attendances"
             WHERE
               Attendances.eventId = Event.id
         )`),
