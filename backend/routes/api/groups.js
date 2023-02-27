@@ -139,7 +139,7 @@ router.get("/:groupId", async (req, res) => {
           FROM ${schema ? `"${schema}"."Memberships"` : "Memberships"}
           AS "Membership"
           WHERE
-            "Membership"."groupId" = "Groups"."id"
+            "Membership"."groupId" = "Group"."id"
           GROUP BY "Membership"."groupId"
           )`),
         "numMembers",
@@ -158,14 +158,7 @@ router.get("/:groupId", async (req, res) => {
         as: "Venues",
       },
     ],
-    group: [
-      "Group.id",
-      "Organizer.id",
-      "Groupimages.id",
-      "Groupimages.url",
-      "Groupimages.preview",
-      "Venues.id",
-    ],
+    group: ["Group.id", "Organizer.id", "Groupimages.id", "Venues.id"],
   });
   if (groups.id) {
     return res.status(200).json(groups);
@@ -236,7 +229,6 @@ router.get("/:groupId/events", async (req, res) => {
         as: "Venue",
         attributes: ["id", "city", "state"],
       },
-      
     ],
     group: ["Event.id", "Group.id", "Venue.id"],
   });
@@ -542,7 +534,7 @@ router.post(
         groupId,
       },
     });
-    
+
     if (!currentMembeship) {
       const createdMembership = await Membership.create({
         userId,
@@ -560,7 +552,10 @@ router.post(
       returnMsg.message = "Membership has already been requested";
       returnMsg.statusCode = 400;
       return res.status(403).json(returnMsg);
-    } else if (currentMembeship.status === "member"||currentMembeship.status === "co-host") {
+    } else if (
+      currentMembeship.status === "member" ||
+      currentMembeship.status === "co-host"
+    ) {
       returnMsg.message = "User is already a member of the group";
       returnMsg.statusCode = 400;
       return res.status(403).json(returnMsg);
