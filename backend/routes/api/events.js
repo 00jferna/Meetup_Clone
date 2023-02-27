@@ -51,7 +51,7 @@ router.get("/", async (req, res) => {
                 "EventImage"."preview" = true
               AND
                 "EventImage"."eventId" = "Event"."id"
-            GROUP BY "EventImage"."url"
+            GROUP BY "Event"."id"
         )`),
         "previewImage",
       ],
