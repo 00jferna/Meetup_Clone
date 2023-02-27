@@ -52,77 +52,47 @@ router.get("/", async (req, res) => {
 // Get all Groups joined or organized by the Current User
 router.get("/current", restoreUser, requireAuth, async (req, res) => {
   const organizerId = req.user.id;
-  // const userGroups = await User.findByPk(organizerId,{
-  //   attributes: [
-  //     "id",
-  //     "organizerId",
-  //     "name",
-  //     "about",
-  //     "type",
-  //     "private",
-  //     "city",
-  //     "state",
-  //     "createdAt",
-  //     "updatedAt",
-  //     [
-  //       Sequelize.literal(`(
-  //           SELECT COUNT(*)
-  //           FROM ${schema ? `"${schema}"."Memberships"` : "Memberships"}
-  //           AS "Membership"
-  //           WHERE
-  //             "Membership"."groupId" = "Group"."id"
-  //           GROUP BY "Membership"."id"
-  //       )`),
-  //       "numAttending",
-  //     ],
-  // })
-
-  const groups = await Group.findAll({
-    attributes: [
-      "id",
-      "organizerId",
-      "name",
-      "about",
-      "type",
-      "private",
-      "city",
-      "state",
-      "createdAt",
-      "updatedAt",
-      [
-        Sequelize.literal(`(
-            SELECT COUNT(*)
-            FROM ${schema ? `"${schema}"."Memberships"` : "Memberships"}
-            AS "Membership"
-            WHERE
-              "Membership"."groupId" = "Group"."id"
-            GROUP BY "Membership"."id"
-        )`),
-        "numAttending",
-      ],
-      [
-        Sequelize.literal(`(
-            SELECT url
-            FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"}
-            AS "Groupimage"
-            WHERE
-                "Groupimage"."preview" = true
-              AND
-                "Groupimage"."groupId" = "Group"."id"
-            GROUP BY "Groupimage"."id"
-            LIMIT 1
-        )`),
-        "previewImage",
-      ],
-    ],
+  const userGroups = await User.findByPk(organizerId, {
+    attributes: [],
     include: [
-      { model: Membership, where: { userId: organizerId }, attributes: [] },
-      { model: Groupimage, attributes: [] },
+      {
+        model: Group,
+        attributes: [
+          "id",
+          "name",
+          "city",
+          "state",
+          [
+            Sequelize.literal(`(
+              SELECT COUNT(*)
+              FROM ${schema ? `"${schema}"."Memberships"` : "Memberships"}
+              AS "Membership"
+              WHERE
+                "Membership"."groupId" = "Groups"."id"
+              GROUP BY "Membership"."groupId"
+              )`),
+            "numMembers",
+          ],
+          [
+            Sequelize.literal(`(
+              SELECT url
+              FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"}
+              AS "Groupimage"
+              WHERE
+                  "Groupimage"."preview" = true
+                AND
+                  "Groupimage"."groupId" = "Groups"."id"
+              GROUP BY "Groupimage"."id"
+              )`),
+            "previewImage",
+          ],
+        ],
+        include: { model: Membership, attributes: [] },
+      },
     ],
-    group: ["Group.id"],
   });
 
-  return res.status(200).json({ Groups: groups });
+  return res.status(200).json(userGroups);
 });
 
 // Get details of a Group from an id
