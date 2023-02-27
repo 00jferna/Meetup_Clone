@@ -69,23 +69,23 @@ router.get("/current", restoreUser, requireAuth, async (req, res) => {
               AS "Membership"
               WHERE
                 "Membership"."groupId" = "Groups"."id"
-              GROUP BY "Membership"."id"
+              GROUP BY "Membership"."groupId"
               )`),
             "numMembers",
           ],
-          // [
-          //   Sequelize.literal(`(
-          //     SELECT url
-          //     FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"}
-          //     AS "Groupimage"
-          //     WHERE
-          //         "Groupimage"."preview" = true
-          //       AND
-          //         "Groupimage"."groupId" = "Groups"."id"
-          //     GROUP BY "Groupimage"."groupId"
-          //     )`),
-          //   "previewImage",
-          // ],
+          [
+            Sequelize.literal(`(
+              SELECT url
+              FROM ${schema ? `"${schema}"."Groupimages"` : "Groupimages"}
+              AS "Groupimage"
+              WHERE
+                  "Groupimage"."preview" = true
+                AND
+                  "Groupimage"."groupId" = "Groups"."id"
+              GROUP BY "Groupimage"."groupId"
+              )`),
+            "previewImage",
+          ],
         ],
         include: { model: Membership, attributes: [] },
       },
