@@ -60,7 +60,7 @@ router.get("/", async (req, res) => {
     ],
     include: [
       {
-        model: Event,
+        model: Group,
         as: "Group",
         attributes: ["id", "name", "city", "state"],
         include: {
@@ -110,7 +110,7 @@ router.get("/:eventId", async (req, res) => {
     ],
     include: [
       {
-        model: Event,
+        model: Group,
         as: "Group",
         attributes: ["id", "name", "city", "state"],
       },

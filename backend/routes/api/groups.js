@@ -196,8 +196,8 @@ router.post("/", restoreUser, requireAuth, async (req, res) => {
     userId: organizerId,
     groupId: group.id,
   });
-
-  return res.status(201).json(group);
+  const newGroup = await Group.scope("newGroup").findByPk(group.id)
+  return res.status(201).json(newGroup);
 });
 
 // Add an Image to a Group based on the Group's id
