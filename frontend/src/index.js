@@ -5,15 +5,13 @@ import App from "./App";
 
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { ModalProvider, Modal } from "./context/Modal";
 
 import configureStore from "./store";
 import { restoreCSRF, csrfFetch } from "./store/csrf";
-import * as sessionActions from './store/session';
+import * as sessionActions from "./store/session";
 
 const store = configureStore();
-if (process.env.NODE_ENV !== "production") {
-  window.store = store;
-}
 
 if (process.env.NODE_ENV !== "production") {
   restoreCSRF();
@@ -25,11 +23,14 @@ if (process.env.NODE_ENV !== "production") {
 
 function Root() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ModalProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+          <Modal />
+        </BrowserRouter>
+      </Provider>
+    </ModalProvider>
   );
 }
 
