@@ -1,0 +1,15 @@
+.explainer__cont{
+    width: 850px;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.explainer__cont>div{
+    display: flex;
+    flex-direction: row;
+}
+
+.explainer__cont>div>div{
+    padding: 30px;
+}

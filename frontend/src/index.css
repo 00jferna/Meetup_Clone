@@ -1,4 +1,41 @@
-/* TODO Add site wide styles */
+header {
+  font-size: 24pt;
+  font-weight: bold;
+}
+
 body {
-  background-color: darkseagreen;
+  font-size: 14pt;
+  font-weight: normal;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Modals */
+#modal-content {
+  top: 100px;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+#modal-content > h1 {
+  text-align: center;
+}
+
+#modal-content > form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#modal-content > form > label > input {
+  background: #e8f0fe;
+}
+
+#modal-content > form > button {
+  background-color: #ff5a5f;
+  box-shadow: 1px 1px black;
+  border: solid 1px;
+  width: 100%;
 }
