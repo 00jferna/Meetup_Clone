@@ -1,0 +1,13 @@
+.landing__splash {
+  display: flex;
+  flex-direction: row;
+  width: 1050px;
+  margin: auto;
+  padding: 30px;
+  align-items: center;
+}
+
+.landing__splash > div {
+  width: 100%;
+  padding: 30px;
+}
