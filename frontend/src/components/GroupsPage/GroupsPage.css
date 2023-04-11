@@ -4,3 +4,35 @@
   color: #999999;
   padding: 20px;
 }
+
+.groupListItem__cont {
+  display: grid;
+  grid-template-areas: "image details";
+  grid-template-rows: auto;
+  grid-template-columns: 30% auto;
+  border-bottom: #999999 solid;
+  padding: 30px;
+}
+.groupListItem__cont:hover {
+  text-decoration: none;
+}
+
+.group__previewImage {
+  max-width: 200px;
+  height: auto;
+  grid-area: "image";
+}
+
+.group__details {
+  grid-area: "details";
+}
+
+.group__details__events_private {
+  display: flex;
+  flex-direction: row;
+}
+
+.group__details__events_private > p {
+  color: #999999;
+  margin: 0px 5px;
+}

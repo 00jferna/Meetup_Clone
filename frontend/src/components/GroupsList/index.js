@@ -9,15 +9,16 @@ const GroupsList = () => {
 
   useEffect(() => {
     dispatch(getAllGroups());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
       {groupList && (
         <ul>
           {groupList.map((group) => (
-            <GroupListItem group />
-          ))}
+            <GroupListItem group={group} key={group.id} />
+            // <li>{group.id}</li>
+            ))}
         </ul>
       )}
     </>
