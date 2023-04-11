@@ -1,15 +1,45 @@
-.explainer__cont{
-    width: 850px;
-    display: block;
-    margin: auto;
-    text-align: center;
+.explainer__cont {
+  width: 850px;
+  display: block;
+  margin: auto;
+  text-align: center;
 }
 
-.explainer__cont>div{
-    display: flex;
-    flex-direction: row;
+.explainer__cont > div {
+  display: flex;
+  flex-direction: row;
 }
 
-.explainer__cont>div>div{
-    padding: 30px;
+.explainer__cont > div > div {
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+a {
+  color: #00525e;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.disabled__link {
+  color: #cccccc;
+  pointer-events: none;
+}
+
+.join__button {
+  background-color: #00525e;
+  box-shadow: 1px 1px black;
+  color: #ffffff;
+  list-style: none;
+  padding: 5px 10px;
+}
+
+.disabled__item {
+  display: none;
 }
