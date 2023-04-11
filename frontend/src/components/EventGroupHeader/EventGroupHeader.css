@@ -1,5 +1,6 @@
 .event__groupcont {
   margin: auto;
+  max-width: 1000px;
 }
 
 .event__group__headercont {
