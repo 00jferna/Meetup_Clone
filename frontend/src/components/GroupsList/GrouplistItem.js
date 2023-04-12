@@ -6,7 +6,7 @@ const GroupListItem = ({ group }, loaded) => {
   const dispatch = useDispatch();
   const [pageLoaded, setPageLoaded] = useState(false);
   const defaultImage = "./assets/group-cover-3-wide.webp";
-  const grouplink = `/groups/${group.id}`;
+  const groupLink = `/groups/${group.id}`;
 
   useEffect(() => {
     dispatch(groupActions.getGroupEvents(group.id)).then(() =>
@@ -17,7 +17,7 @@ const GroupListItem = ({ group }, loaded) => {
   return (
     <>
       {pageLoaded && (
-        <a href={grouplink} className="groupListItem__cont">
+        <a href={groupLink} className="groupListItem__cont">
           <img
             className="group__previewImage"
             src={group.previewImage ? group.previewImage : defaultImage}

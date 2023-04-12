@@ -52,9 +52,11 @@ export const getGroupEvents = (id) => async (dispatch) => {
 
   const groupEventsObj = {};
   const data = await res.json();
-  data.Events.forEach((ele) => {
-    groupEventsObj[ele.id] = ele;
-  });
+  if (data.Events[0]) {
+    data.Events.forEach((ele) => {
+      groupEventsObj[ele.id] = ele;
+    });
+  }
   dispatch(setGroupEvents(groupEventsObj));
   return res;
 };
