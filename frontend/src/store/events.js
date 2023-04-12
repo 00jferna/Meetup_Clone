@@ -4,7 +4,7 @@ export default function eventsReducer(state = initialState, action) {
   const newState = { ...state };
   switch (action.type) {
     case SETALLEVENTS:
-      newState.events = action.item.events;
+      newState.events = action.item;
       return newState;
     default:
       return newState;
@@ -24,8 +24,11 @@ export const getAllEvents = () => async (dispatch) => {
   const res = await fetch("/api/events", {
     method: "GET",
   });
-
+  const eventsObj = {};
   const data = await res.json();
-  dispatch(setEvents(data));
+  data.Events.forEach((ele) => {
+    eventsObj[ele.id] = ele;
+  });
+  dispatch(setEvents(eventsObj));
   return res;
 };

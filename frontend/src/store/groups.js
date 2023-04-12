@@ -1,4 +1,4 @@
-const initialState = { groups: { 1: null } };
+const initialState = {};
 
 export default function groupsReducer(state = initialState, action) {
   const newState = { ...state };
