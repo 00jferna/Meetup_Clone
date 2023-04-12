@@ -1,0 +1,22 @@
+.event__groupcont {
+  margin: auto;
+  max-width: 1000px;
+}
+
+.event__group__headercont {
+  display: flex;
+  flex-direction: row;
+}
+
+.event__group__headercont > a {
+  margin: 10px;
+}
+
+.active__page {
+  text-decoration: underline;
+  pointer-events: none;
+}
+
+.inactive__page {
+  color: #000000;
+}

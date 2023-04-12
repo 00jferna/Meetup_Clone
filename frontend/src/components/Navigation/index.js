@@ -8,12 +8,11 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   return (
-    <header class='main__header'>
-      <ul class = 'main__menu'>
-          
+    <header className='main__header'>
+      <ul className = 'main__menu'>
         <li>
           <NavLink exact to="/">
-          <img class='main__header_logo' src="./assets/Meetup_logo.png"></img>
+          <img className='main__header_logo' src="./assets/Meetup_logo.png"></img>
           </NavLink>
         </li>
         {isLoaded && (

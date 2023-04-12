@@ -1,0 +1,40 @@
+.events__subheader {
+  border-bottom: solid;
+  font-size: 18pt;
+  color: #999999;
+  padding: 20px;
+}
+
+.eventListItem__cont {
+  border-bottom: #999999 solid;
+  color: #000000;
+  display: grid;
+  grid-template-areas: "image details";
+  grid-template-rows: auto;
+  grid-template-columns: 30% auto;
+  padding: 30px;
+}
+
+.eventListItem__cont:hover {
+  text-decoration: none;
+}
+
+.event__previewImage {
+  height: auto;
+  grid-area: "image";
+  max-width: 200px;
+}
+
+.event__details {
+  grid-area: "details";
+}
+
+.event__details__events_private {
+  display: flex;
+  flex-direction: row;
+}
+
+.event__details__events_private > p {
+  color: #999999;
+  margin: 0px 5px;
+}

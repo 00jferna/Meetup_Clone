@@ -5,8 +5,8 @@ import "./LandingPage.css";
 const LandingPage = () => {
   return (
     <>
-      <div class="react__div">
-        <div class="landing__splash">
+      <div className="react__div">
+        <div className="landing__splash">
           <div>
             <h2>The people platform-</h2>
             <h2>Where interests become friendships</h2>
