@@ -455,14 +455,14 @@ router.put(
         eventId,
       },
     });
-    
+
     if (!member) {
       returnMsg.message =
         "Attendance between the user and the event does not exist";
       returnMsg.statusCode = 404;
       return res.status(403).json(returnMsg);
     }
-    
+
     if (
       member.status === "pending" &&
       (user.status === "co-host" || user_Id === group.organizerId)

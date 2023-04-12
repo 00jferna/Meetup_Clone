@@ -1,24 +1,24 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllGroups } from "../../store/groups";
-import { useEffect } from "react";
-import GroupListItem from "../GroupsPage/GrouplistItem";
+import * as groupActions from "../../store/groups";
+import GroupListItem from "./GrouplistItem";
 
 const GroupsList = () => {
   const dispatch = useDispatch();
   const groupList = useSelector((state) => state.group.groups);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(getAllGroups());
+    dispatch(groupActions.getAllGroups()).then(() => setLoaded(true));
   }, [dispatch]);
 
   return (
     <>
-      {groupList && (
+      {loaded && (
         <ul>
-          {groupList.map((group) => (
-            <GroupListItem group={group} key={group.id} />
-            // <li>{group.id}</li>
-            ))}
+          {Object.values(groupList).map((group) => (
+            <GroupListItem group={group} key={group.id} loaded={loaded} />
+          ))}
         </ul>
       )}
     </>
