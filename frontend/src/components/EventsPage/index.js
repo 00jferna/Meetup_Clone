@@ -4,7 +4,7 @@ import EventGroupHeader from "../EventGroupHeader";
 const EventPage = () => {
   return (
     <>
-      <EventGroupHeader />
+      <EventGroupHeader page='events'/>
       <h3>Events</h3>
     </>
   );
