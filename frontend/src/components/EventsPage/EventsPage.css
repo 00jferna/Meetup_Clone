@@ -7,6 +7,9 @@
 
 .eventListItem__cont {
   border-bottom: #999999 solid;
+}
+
+.eventListItem {
   color: #000000;
   display: grid;
   grid-template-areas: "image details";
@@ -15,26 +18,24 @@
   padding: 30px;
 }
 
-.eventListItem__cont:hover {
+.eventListItem:hover {
   text-decoration: none;
 }
 
 .event__previewImage {
   height: auto;
   grid-area: "image";
-  max-width: 200px;
+  max-width: 250px;
 }
 
-.event__details {
-  grid-area: "details";
-}
-
-.event__details__events_private {
+.event__datetime__cont {
   display: flex;
   flex-direction: row;
+  list-style: none;
+  padding-inline-start: 0px;
 }
 
-.event__details__events_private > p {
-  color: #999999;
-  margin: 0px 5px;
+.event__datetime__cont > li {
+  padding-left: 0px;
+  padding-right: 10px;
 }

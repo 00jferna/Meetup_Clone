@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 const initialState = {};
 
 export default function eventsReducer(state = initialState, action) {
@@ -21,14 +23,16 @@ export const setEvents = (item) => {
 };
 
 export const getAllEvents = () => async (dispatch) => {
-  const res = await fetch("/api/events", {
+  const res = await csrfFetch("/api/events", {
     method: "GET",
   });
   const eventsObj = {};
   const data = await res.json();
-  data.Events.forEach((ele) => {
-    eventsObj[ele.id] = ele;
-  });
+  if (data.Events[0]) {
+    data.Events.forEach((ele) => {
+      eventsObj[ele.id] = ele;
+    });
+  }
   dispatch(setEvents(eventsObj));
   return res;
 };
