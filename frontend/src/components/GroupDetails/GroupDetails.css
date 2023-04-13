@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 .group__detailscont {
   margin: auto;
   max-width: 1000px;
