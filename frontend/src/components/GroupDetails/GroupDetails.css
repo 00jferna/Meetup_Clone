@@ -26,8 +26,7 @@
   margin: auto;
   max-width: 1000px;
 }
-.group__upcomingevents__cont,
-.group__pastevents__cont {
+.group__events__cont {
   width: 550px;
 }
 

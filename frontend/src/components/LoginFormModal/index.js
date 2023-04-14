@@ -11,6 +11,10 @@ function LoginFormModal() {
   const [disableButton, setDisableButton] = useState(true);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+  const demoUser = {
+    credential: "demo",
+    password: "password",
+  };
 
   useEffect(() => {
     if (credential.length >= 4) setDisableButton(false);
@@ -28,36 +32,68 @@ function LoginFormModal() {
       });
   };
 
+  const demoLogin = () => {
+    dispatch(sessionActions.login(demoUser))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
+  };
+
   return (
     <>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          <input
-            placeholder="Username or Email"
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <input
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button disabled={disableButton} type="submit">
-          Log In
-        </button>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <ul className="login__errors">
+                  {errors.map((error, idx) => (
+                    <li key={idx}>{error}</li>
+                  ))}
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>
+                  <input
+                    placeholder="Username or Email"
+                    type="text"
+                    value={credential}
+                    onChange={(e) => setCredential(e.target.value)}
+                    required
+                  />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>
+                  <input
+                    placeholder="Password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button disabled={disableButton} type="submit">
+                  Log In
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <a className="login__demo__link" onClick={demoLogin}>
+          Demo User
+        </a>
       </form>
     </>
   );

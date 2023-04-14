@@ -24,7 +24,7 @@ const GroupDetails = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(groupActions.getGroupDetailEvents(groupInt)).then(() =>
+    if (loaded) dispatch(groupActions.getGroupDetailEvents(groupInt)).then(() =>
       setPageLoaded(true)
     );
   }, [loaded]);
