@@ -14,6 +14,9 @@ const GroupDetails = () => {
   const [loaded, setLoaded] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(false);
 
+  const visibleSection = "group__events__cont";
+  const hiddenSection = "group__events__cont hidden";
+
   useEffect(() => {
     dispatch(groupActions.getGroupDetails(groupInt)).then(() =>
       setLoaded(true)
@@ -21,7 +24,7 @@ const GroupDetails = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(groupActions.getGroupDetailEvents(groupInt)).then(() =>
+    if (loaded) dispatch(groupActions.getGroupDetailEvents(groupInt)).then(() =>
       setPageLoaded(true)
     );
   }, [loaded]);
@@ -77,7 +80,13 @@ const GroupDetails = () => {
                 <h3>What we're about</h3>
                 <p>{group.about}</p>
               </div>
-              <div className="group__upcomingevents__cont">
+              <div
+                className={
+                  Object.keys(group.upcomingEvents).length
+                    ? visibleSection
+                    : hiddenSection
+                }
+              >
                 <h3>
                   Upcoming Events (
                   {group.upcomingEvents
@@ -88,13 +97,22 @@ const GroupDetails = () => {
                 <ul>
                   {group.upcomingEvents &&
                     Object.values(group.upcomingEvents).map((event) => (
-                      <div key={event.id} className="group__eventListItem__cont">
-                        <EventListItem event={event}  />
+                      <div
+                        key={event.id}
+                        className="group__eventListItem__cont"
+                      >
+                        <EventListItem event={event} />
                       </div>
                     ))}
                 </ul>
               </div>
-              <div className="group__pastevents__cont">
+              <div
+                className={
+                  Object.keys(group.pastEvents).length
+                    ? visibleSection
+                    : hiddenSection
+                }
+              >
                 <h3>
                   Past Events (
                   {group.pastEvents
@@ -105,7 +123,12 @@ const GroupDetails = () => {
                 <ul>
                   {group.pastEvents &&
                     Object.values(group.pastEvents).map((event) => (
-                      <EventListItem event={event} key={event.id} />
+                      <div
+                        key={event.id}
+                        className="group__eventListItem__cont"
+                      >
+                        <EventListItem event={event} />
+                      </div>
                     ))}
                 </ul>
               </div>

@@ -8,6 +8,7 @@ import GroupPage from "./components/GroupsPage";
 import EventPage from "./components/EventsPage";
 import NewGroupPage from "./components/NewGroupsPage";
 import GroupDetails from "./components/GroupDetails";
+import EventDetails from "./components/EventDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/groups" component={GroupPage} />
           <Route exact path="/groups/:groupId" component={GroupDetails} />
           <Route exact path="/events" component={EventPage} />
+          <Route exact path="/events/:eventId" component={EventDetails} />
           <Route exact path="/groups/new" component={NewGroupPage} />
         </Switch>
       )}

@@ -56,68 +56,104 @@ function SignupFormModal() {
     <>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          <input
-            placeholder="Email"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <input
-            placeholder="Username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <input
-            placeholder="First Name"
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <input
-            placeholder="Last Name"
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <input
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          <input
-            placeholder="Confirm Password"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button disabled={disableButton} type="submit">
-          Sign Up
-        </button>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <ul className="signup__errors">
+                  {errors.map((error, idx) => (
+                    <li key={idx}>{error}</li>
+                  ))}
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>
+                  <input
+                    placeholder="Email"
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>
+                  <input
+                    placeholder="Username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>
+                  <input
+                    placeholder="First Name"
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>
+                  <input
+                    placeholder="Last Name"
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>
+                  <input
+                    placeholder="Password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>
+                  <input
+                    placeholder="Confirm Password"
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button disabled={disableButton} type="submit">
+                  Sign Up
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </form>
     </>
   );

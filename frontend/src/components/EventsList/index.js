@@ -17,8 +17,8 @@ const EventsList = () => {
       {loaded && (
         <ul>
           {Object.values(eventList).map((event) => (
-            <div className="eventListItem__cont">
-              <EventListItem event={event} key={event.id} />
+            <div className="eventListItem__cont" key={event.id}>
+              <EventListItem event={event} />
             </div>
           ))}
         </ul>
