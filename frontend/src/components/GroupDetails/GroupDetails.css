@@ -2,6 +2,10 @@
   display: none;
 }
 
+.visible {
+  display: initial;
+}
+
 .group__detailscont {
   margin: auto;
   max-width: 1000px;
@@ -34,4 +38,24 @@
   border-radius: 5px;
   background-color: #ffffff;
   margin-bottom: 10px;
+}
+
+.group__join__button {
+  background-color: #ff5a5f;
+  border: solid 1px;
+  box-shadow: 1px 1px black;
+  height: 30px;
+  margin-top: 10px;
+  width: 180px;
+}
+
+.group__edit__button {
+  background-color: #999999;
+  color: #ffffff;
+  border: solid 1px #000000;
+  box-shadow: 1px 1px black;
+  height: 30px;
+  margin: 5px;
+  padding: 5px;
+  width: fit-content;
 }

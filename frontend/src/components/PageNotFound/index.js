@@ -1,4 +1,4 @@
-const NewGroupPage = () => {
+const PageNotFound = () => {
     return (
       <>
       <h3>New Group</h3>
@@ -6,5 +6,5 @@ const NewGroupPage = () => {
     );
   };
   
-  export default NewGroupPage;
+  export default PageNotFound;
   

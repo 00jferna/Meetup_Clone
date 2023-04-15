@@ -119,3 +119,24 @@ export const getGroupDetailEvents = (id) => async (dispatch) => {
   dispatch(setGroupDetailEvents(data));
   return res;
 };
+
+export const createGroup = (group) => async (dispatch) => {
+  const { city, state, name, about, type, privateBol, imageUrl } = group;
+  const res = await csrfFetch("/api/groups/", {
+    method: "POST",
+    body: JSON.stringify({
+      city,
+      state,
+      name,
+      about,
+      type,
+      private: privateBol,
+      imageUrl,
+    }),
+  });
+  const groupObj = {};
+  const data = await res.json();
+  groupObj[data.id] = data;
+  dispatch(setGroups(groupObj));
+  return data;
+};

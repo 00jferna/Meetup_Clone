@@ -599,7 +599,6 @@ router.put(
       returnMsg.statusCode = 404;
       return res.status(403).json(returnMsg);
     }
-    console.log(member, user);
     if (
       member.status === "pending" &&
       (user.status === "co-host" || userId === group.organizerId)

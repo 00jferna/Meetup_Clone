@@ -46,7 +46,9 @@ function ProfileButton({ user }) {
     <div className="profile__header">
       {user ? (
         <div>
-          <a className="profile__startgroup__link">Start a new group</a>
+          <a className="profile__startgroup__link" href="/groups/new">
+            Start a new group
+          </a>
         </div>
       ) : (
         <></>

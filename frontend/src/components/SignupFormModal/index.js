@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
-import "./SignupForm.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ function SignupFormModal() {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
+
       return dispatch(
         sessionActions.signup({
           email,
@@ -61,7 +62,7 @@ function SignupFormModal() {
             <tr>
               <td>
                 <ul className="signup__errors">
-                  {errors.map((error, idx) => (
+                  {Object.values(errors).map((error, idx) => (
                     <li key={idx}>{error}</li>
                   ))}
                 </ul>

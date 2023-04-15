@@ -1,0 +1,38 @@
+.group__create__cont {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.group__create__section {
+  border-bottom: #000000 solid 1px;
+  padding: 10px 0px;
+}
+
+.group__create__section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 50px;
+}
+
+.group__create__section > input,
+.group__create__section > select {
+  background: #e8f0fe;
+  padding: 0px;
+  width: 300px;
+}
+.group__create__section > select {
+  width: fit-content;
+}
+
+.group__create__section > button {
+  color: #ffffff;
+  background-color: #ff5a5f;
+  border: #000000 solid 1px;
+  box-shadow: 1px 1px black;
+  height: 30px;
+  margin-top: 10px;
+  width: 125px;
+}
+
+.error {
+  color: red;
+}

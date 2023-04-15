@@ -10,12 +10,13 @@ const GroupDetails = () => {
   const { groupId } = useParams();
   const groupInt = Number.parseInt(groupId);
   const group = useSelector((state) => state.group.groupDetails);
-  const defaultImage = "../assets/group-cover-3-wide.webp";
+  const user = useSelector((state) => state.session.user);
+  const defaultImage = "/assets/group-cover-3-wide.webp";
   const [loaded, setLoaded] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(false);
 
-  const visibleSection = "group__events__cont";
-  const hiddenSection = "group__events__cont hidden";
+  const visibleSection = "visible";
+  const hiddenSection = "hidden";
 
   useEffect(() => {
     dispatch(groupActions.getGroupDetails(groupInt)).then(() =>
@@ -24,18 +25,25 @@ const GroupDetails = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (loaded) dispatch(groupActions.getGroupDetailEvents(groupInt)).then(() =>
-      setPageLoaded(true)
-    );
+    if (loaded)
+      dispatch(groupActions.getGroupDetailEvents(groupInt)).then(() =>
+        setPageLoaded(true)
+      );
   }, [loaded]);
 
+  const onClick = (e) => {
+    e.preventDefault();
+    return;
+  };
+
+  if (pageLoaded) console.log(user.id, group.organizerId);
   return (
     <>
       {pageLoaded && (
         <div className="group__details__page">
           <div className="group__detailscont">
             <a className="groups__link" href="/groups">
-              Groups
+              &#x3c; Groups
             </a>
           </div>
           <div className="group__detailscont">
@@ -58,14 +66,38 @@ const GroupDetails = () => {
                     : "0"}{" "}
                   Events
                 </p>
+                <p>&#x2022;</p>
                 <p>{group.private ? "Private" : "Public"}</p>
               </div>
               <h4>
                 Organized by {group.Organizer ? group.Organizer.firstName : ""}{" "}
                 {group.Organizer ? group.Organizer.lastName : ""}
               </h4>
-              <div>
-                <button>Join this group</button>
+              <div
+                className={
+                  user
+                    ? group.organizerId === user.id
+                      ? hiddenSection
+                      : visibleSection
+                    : hiddenSection
+                }
+              >
+                <button onClick={onClick} className="group__join__button">
+                  Join this group
+                </button>
+              </div>
+              <div
+                className={
+                  user
+                    ? group.organizerId === user.id
+                      ? visibleSection
+                      : visibleSection
+                    : hiddenSection
+                }
+              >
+                <button className="group__edit__button">Create Event</button>
+                <button className="group__edit__button">Update</button>
+                <button className="group__edit__button">Delete</button>
               </div>
             </div>
           </div>
@@ -82,55 +114,61 @@ const GroupDetails = () => {
               </div>
               <div
                 className={
-                  Object.keys(group.upcomingEvents).length
+                  group.upcomingEvents &&
+                  (Object.keys(group.upcomingEvents).length
                     ? visibleSection
-                    : hiddenSection
+                    : hiddenSection)
                 }
               >
-                <h3>
-                  Upcoming Events (
-                  {group.upcomingEvents
-                    ? Object.keys(group.upcomingEvents).length
-                    : "0"}
-                  )
-                </h3>
-                <ul>
-                  {group.upcomingEvents &&
-                    Object.values(group.upcomingEvents).map((event) => (
-                      <div
-                        key={event.id}
-                        className="group__eventListItem__cont"
-                      >
-                        <EventListItem event={event} />
-                      </div>
-                    ))}
-                </ul>
+                <div className="group__events__cont">
+                  <h3>
+                    Upcoming Events (
+                    {group.upcomingEvents
+                      ? Object.keys(group.upcomingEvents).length
+                      : "0"}
+                    )
+                  </h3>
+                  <ul>
+                    {group.upcomingEvents &&
+                      Object.values(group.upcomingEvents).map((event) => (
+                        <div
+                          key={event.id}
+                          className="group__eventListItem__cont"
+                        >
+                          <EventListItem event={event} />
+                        </div>
+                      ))}
+                  </ul>
+                </div>
               </div>
               <div
                 className={
-                  Object.keys(group.pastEvents).length
+                  group.upcomingEvents &&
+                  (Object.keys(group.upcomingEvents).length
                     ? visibleSection
-                    : hiddenSection
+                    : hiddenSection)
                 }
               >
-                <h3>
-                  Past Events (
-                  {group.pastEvents
-                    ? Object.keys(group.pastEvents).length
-                    : "0"}
-                  )
-                </h3>
-                <ul>
-                  {group.pastEvents &&
-                    Object.values(group.pastEvents).map((event) => (
-                      <div
-                        key={event.id}
-                        className="group__eventListItem__cont"
-                      >
-                        <EventListItem event={event} />
-                      </div>
-                    ))}
-                </ul>
+                <div className="group__events__cont">
+                  <h3>
+                    Past Events (
+                    {group.pastEvents
+                      ? Object.keys(group.pastEvents).length
+                      : "0"}
+                    )
+                  </h3>
+                  <ul>
+                    {group.pastEvents &&
+                      Object.values(group.pastEvents).map((event) => (
+                        <div
+                          key={event.id}
+                          className="group__eventListItem__cont"
+                        >
+                          <EventListItem event={event} />
+                        </div>
+                      ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
