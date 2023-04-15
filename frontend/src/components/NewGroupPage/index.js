@@ -5,22 +5,15 @@ import { useDispatch } from "react-redux";
 import * as groupActions from "../../store/groups";
 
 const NewGroupPage = () => {
-  const [location, setLocation] = useState("");
-  const [locationChanged, setLocationChanged] = useState(false);
-  const [name, setName] = useState("");
-  const [nameChanged, setNameChanged] = useState(false);
-  const [about, setAbout] = useState("");
-  const [aboutChanged, setAboutChanged] = useState(false);
-  const [type, setType] = useState("");
-  const [typeChanged, setTypeChanged] = useState(false);
-  const [privateBol, setPrivateBol] = useState("");
-  const [privateBolChanged, setPrivateBolChanged] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
-  const [imageUrlChanged, setImageUrlChanged] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [location, setLocation] = useState("");
+  const [name, setName] = useState("");
+  const [about, setAbout] = useState("");
+  const [type, setType] = useState("");
+  const [privateBol, setPrivateBol] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleSubmit = (e) => {
