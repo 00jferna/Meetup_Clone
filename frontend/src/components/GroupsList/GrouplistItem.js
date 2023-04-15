@@ -30,6 +30,7 @@ const GroupListItem = ({ group }, loaded) => {
             <p>{group.about}</p>
             <div className="group__details__events_private">
               <p>{group.events ? Object.values(group.events).length : 0} Events</p>
+              <p>&#x2022;</p>
               <p>{group.private ? "Private" : "Public"}</p>
             </div>
           </div>

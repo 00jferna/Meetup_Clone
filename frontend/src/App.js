@@ -6,7 +6,7 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import GroupPage from "./components/GroupsPage";
 import EventPage from "./components/EventsPage";
-import NewGroupPage from "./components/NewGroupsPage";
+import NewGroupPage from "./components/NewGroupPage";
 import GroupDetails from "./components/GroupDetails";
 import EventDetails from "./components/EventDetails";
 
@@ -24,11 +24,13 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route exact path="/groups" component={GroupPage} />
-          <Route exact path="/groups/:groupId" component={GroupDetails} />
-          <Route exact path="/events" component={EventPage} />
-          <Route exact path="/events/:eventId" component={EventDetails} />
-          <Route exact path="/groups/new" component={NewGroupPage} />
+
+          <Route path="/groups/new" component={NewGroupPage} />
+          <Route path="/groups/:groupId" component={GroupDetails} />
+          <Route path="/groups" component={GroupPage} />
+
+          <Route path="/events/:eventId" component={EventDetails} />
+          <Route path="/events" component={EventPage} />
         </Switch>
       )}
     </>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as eventActions from "../../store/events";
 
 const EventListItem = ({ event }) => {
-  const defaultImage = "./assets/group-cover-3-wide.webp";
+  const defaultImage = "/assets/group-cover-3-wide.webp";
   const eventLink = `/events/${event.id}`;
 
   return (

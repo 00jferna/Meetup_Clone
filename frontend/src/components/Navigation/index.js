@@ -12,7 +12,7 @@ function Navigation({ isLoaded }) {
       <ul className = 'main__menu'>
         <li>
           <NavLink exact to="/">
-          <img className='main__header_logo' src="./assets/Meetup_logo.png"></img>
+          <img className='main__header_logo' src="/assets/Meetup_logo.png"></img>
           </NavLink>
         </li>
         {isLoaded && (

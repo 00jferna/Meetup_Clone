@@ -21,7 +21,7 @@ const LandingPage = () => {
             </p>
           </div>
           <div>
-            <img src="./assets/online_events.svg"></img>
+            <img src="/assets/online_events.svg"></img>
           </div>
         </div>
         <MeetupExplainer />

@@ -11,7 +11,7 @@ const EventDetails = () => {
   const eventInt = Number.parseInt(eventId);
   const event = useSelector((state) => state.event.eventDetails);
   const group = useSelector((state) => state.group.groupDetails);
-  const defaultImage = "../assets/group-cover-3-wide.webp";
+  const defaultImage = "/assets/group-cover-3-wide.webp";
   const [loaded, setLoaded] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(false);
 
@@ -33,10 +33,10 @@ const EventDetails = () => {
       {pageLoaded && (
         <div className="event__details__page">
           <div className="event__details__header">
-            <a href="/events">Events</a>
+            <a href="/events">&#x3c; Events</a>
             <h2>{event.name}</h2>
             <h3>
-              Hosted by {group.Organizer.firstName} {group.Organizer.lastName}
+              Hosted by {group.Organizer && group.Organizer.firstName} {group.Organizer && group.Organizer.lastName}
             </h3>
           </div>
           <div className="event__details__cont">
@@ -48,16 +48,18 @@ const EventDetails = () => {
                 }
               ></img>
               <div className="event__group">
-                <div className="event__group__cont">
-                  <img
-                    className="event__group__image"
-                    src={group.GroupImages ? "yes" : defaultImage}
-                  ></img>
-                  <div className="event__group__details">
-                    <h3>{event.Group.name}</h3>
-                    <h4>{group.private ? "Private" : "Public"}</h4>
+                <a href={`/groups/${event.Group.id}`}>
+                  <div className="event__group__cont">
+                    <img
+                      className="event__group__image"
+                      src={group.GroupImages ? "yes" : defaultImage}
+                    ></img>
+                    <div className="event__group__details">
+                      <h3>{event.Group.name}</h3>
+                      <h4>{group.private ? "Private" : "Public"}</h4>
+                    </div>
                   </div>
-                </div>
+                </a>
                 <div className="event__details">
                   <ul>
                     <li className="event__details__time">
