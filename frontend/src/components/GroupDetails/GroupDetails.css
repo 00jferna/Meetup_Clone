@@ -59,3 +59,14 @@
   padding: 5px;
   width: fit-content;
 }
+
+.test {
+  background-color: #999999;
+  color: #ffffff;
+  border: solid 1px #000000;
+  box-shadow: 1px 1px black;
+  height: 30px;
+  margin: 5px;
+  padding: 5px;
+  width: fit-content;
+}

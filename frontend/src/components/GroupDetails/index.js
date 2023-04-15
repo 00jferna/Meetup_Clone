@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams, Link } from "react-router-dom";
 import * as groupActions from "../../store/groups";
 import EventListItem from "../EventsList/EventlistItem";
+import OpenModalButton from "../ConfirmModals";
+import * as EditItems from "../ConfirmModals/EditItems";
 import "./GroupDetails.css";
 
 const GroupDetails = () => {
@@ -14,7 +16,7 @@ const GroupDetails = () => {
   const defaultImage = "/assets/group-cover-3-wide.webp";
   const [loaded, setLoaded] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(false);
-
+  const history = useHistory();
   const visibleSection = "visible";
   const hiddenSection = "hidden";
 
@@ -36,7 +38,6 @@ const GroupDetails = () => {
     return;
   };
 
-  if (pageLoaded) console.log(user.id, group.organizerId);
   return (
     <>
       {pageLoaded && (
@@ -91,13 +92,19 @@ const GroupDetails = () => {
                   user
                     ? group.organizerId === user.id
                       ? visibleSection
-                      : visibleSection
+                      : hiddenSection
                     : hiddenSection
                 }
               >
-                <button className="group__edit__button">Create Event</button>
-                <button className="group__edit__button">Update</button>
-                <button className="group__edit__button">Delete</button>
+                <Link to={`/groups/${group.id}/new`} className="group__edit__button">CreateEvent</Link>
+                <Link to={`/`} className="group__edit__button">Update</Link>
+                <OpenModalButton
+                  buttonText={"Delete"}
+                  className="group__edit__button"
+                  modalComponent={
+                    <EditItems.DeleteModal type="group" group={group} />
+                  }
+                />
               </div>
             </div>
           </div>

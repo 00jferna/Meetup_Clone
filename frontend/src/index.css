@@ -51,9 +51,11 @@ button {
   width: 99%;
 }
 
-#modal-content > form > table > tbody > tr > td > button {
+#modal-content > form > table > tbody > tr > td > button,
+.confirm__delete {
+  color: #ffffff;
   background-color: #ff5a5f;
-  border: solid 1px;
+  border: solid 1px #000000;
   box-shadow: 1px 1px black;
   height: 30px;
   margin-top: 10px;
@@ -62,6 +64,14 @@ button {
 
 #modal-content > form > table > tbody > tr > td > button:disabled {
   background-color: #cccccc;
+}
+
+.confirm__delete__list {
+  list-style: none;
+}
+
+.confirm__delete:last-of-type {
+  background-color: #999999;
 }
 
 .login__errors,
