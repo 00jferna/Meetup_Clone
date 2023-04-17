@@ -21,7 +21,7 @@ const EventListItem = ({ event }) => {
           </ul>
           <h3>{event.name}</h3>
           <h4>
-            {event.Venue.city}, {event.Venue.state}
+            {event.Group.city}, {event.Group.state}
           </h4>
         </div>
       </a>

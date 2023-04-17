@@ -56,7 +56,11 @@ const GroupDetails = () => {
             <div className="group__imagecont">
               <img
                 className="group__image"
-                src={group.GroupImages ? "yes" : defaultImage}
+                src={
+                  group.Groupimages.length
+                    ? group.Groupimages[0].url
+                    : defaultImage
+                }
               ></img>
             </div>
             <div className="group__details">
@@ -154,7 +158,7 @@ const GroupDetails = () => {
                     {group.upcomingEvents &&
                       Object.values(group.upcomingEvents)
                         .sort((a, b) => {
-                          return new Date(b.startDate) - new Date(a.startDate);
+                          return new Date(a.startDate) - new Date(b.startDate);
                         })
                         .map((event) => (
                           <div
@@ -188,7 +192,7 @@ const GroupDetails = () => {
                     {group.pastEvents &&
                       Object.values(group.pastEvents)
                         .sort((a, b) => {
-                          return new Date(b.startDate) - new Date(a.startDate);
+                          return new Date(a.startDate) - new Date(b.startDate);
                         })
                         .map((event) => (
                           <div

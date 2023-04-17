@@ -13,6 +13,14 @@ module.exports = {
       options,
       [
         {
+          id: 1,
+          email: "demo@user.io",
+          username: "Demo-lition",
+          firstName: "Demo",
+          lastName: "User",
+          hashedPassword: bcrypt.hashSync("demo-password"),
+        },
+        {
           id: 2,
           email: "Clark@user.io",
           username: "ClarkA",
@@ -47,7 +55,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        username: { [Op.in]: ["ClarkA", "JohnS", "JaneD"] },
+        username: { [Op.in]: ["Demo-lition", "ClarkA", "JohnS", "JaneD"] },
       },
       {}
     );
