@@ -11,8 +11,8 @@ function LoginFormModal() {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
   const demoUser = {
-    credential: "demo",
-    password: "password",
+    credential: "Demo-lition",
+    password: "demo-password",
   };
 
   useEffect(() => {
