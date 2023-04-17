@@ -12,30 +12,48 @@ module.exports = {
       options,
       [
         {
-          name: "Memphis JS Users",
+          name: "Memphis Photographers",
           about:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          type: "Online",
-          private: false,
-          city: "Memphis",
-          state: "TN",
-        },
-        {
-          name: "Memphis Bowling Group",
-          about:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "Join the Memphis TN Photographers Group to explore and capture the essence of this vibrant city through your lens. We offer photo walks, workshops, and events for photographers of all levels. Let's discover the beauty of Memphis together!",
           type: "In person",
           private: false,
           city: "Memphis",
           state: "TN",
         },
         {
-          name: "Serect Society",
+          name: "Motorbike Touring of America",
           about:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "Join our motorbike touring group and explore the open road with like-minded riders. Experience the thrill of touring while enjoying the beauty of nature. Meet new friends and discover new destinations together. Join us for an adventure on two wheels!",
+          type: "Online",
+          private: false,
+          city: "Dallas",
+          state: "TX",
+        },
+        {
+          name: "International Travelers",
+          about:
+            "Ready to explore the world? Join our international travel group and experience new cultures, food, and people. From exotic destinations to off-the-beaten-path adventures, we offer unforgettable experiences that will broaden your horizons. Discover the world with us!",
+          type: "Online",
+          private: true,
+          city: "New York",
+          state: "NY",
+        },
+        {
+          name: "Backpackers of West Tennessee",
+          about:
+            "The Backpackers of West Tennessee group offers unforgettable outdoor experiences for hiking and camping enthusiasts. Join our community to broaden your horizons, meet new friends, and explore the great outdoors together.",
           type: "In person",
           private: true,
           city: "Memphis",
+          state: "TN",
+        },
+        {
+          name: "Professionals of Nashville",
+          about:
+            "Our Nashville Professionals community is focused on networking and connecting like-minded individuals. Join us for business events, social gatherings, and more to expand your professional and personal circles. Build valuable relationships, grow your career, and make meaningful connections with our community.",
+          type: "In person",
+          private: true,
+          city: "Nashville",
           state: "TN",
         },
       ],
@@ -51,9 +69,11 @@ module.exports = {
       {
         name: {
           [Op.in]: [
-            "Memphis JS Users",
-            "Memphis Bowling Group",
-            "Serect Society",
+            "Memphis Photographers",
+            "Motorbike Touring of America",
+            "International Travelers",
+            "Backpackers of West Tennessee",
+            "Professionals of Nashville",
           ],
         },
       },

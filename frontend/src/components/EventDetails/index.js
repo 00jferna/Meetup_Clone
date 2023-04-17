@@ -50,7 +50,9 @@ const EventDetails = () => {
               <img
                 className="event__details__image"
                 src={
-                  event.EventImages.length ? event.EventImages[0] : defaultImage
+                  event.EventImages.length
+                    ? event.EventImages[0].url
+                    : defaultImage
                 }
               ></img>
               <div className="event__group">
@@ -58,7 +60,11 @@ const EventDetails = () => {
                   <div className="event__group__cont">
                     <img
                       className="event__group__image"
-                      src={group.GroupImages ? "yes" : defaultImage}
+                      src={
+                        group.Groupimages.length
+                          ? group.Groupimages[0].url
+                          : defaultImage
+                      }
                     ></img>
                     <div className="event__group__details">
                       <h3>{event.Group.name}</h3>

@@ -6,7 +6,17 @@ export default function eventsReducer(state = initialState, action) {
   const newState = { ...state };
   switch (action.type) {
     case SETALLEVENTS:
-      newState.events = action.item;
+      const date = new Date().toJSON();
+      newState.upcomingEvents = {};
+      newState.pastEvents = {};
+      for (let id in action.item) {
+        if (date < action.item[id].startDate) {
+          newState.upcomingEvents[action.item[id].id] = action.item[id];
+        } else {
+          newState.pastEvents[action.item[id].id] = action.item[id];
+        }
+      }
+      newState.eventTotal = Object.keys(action.item).length;
       return newState;
     case SETEVENTDETAILS:
       newState.eventDetails = action.item;
@@ -45,10 +55,9 @@ export const createGroupEvent = (item) => {
   };
 };
 
-export const deleteCurrentEvent = (item) => {
+export const deleteCurrentEvent = () => {
   return {
     type: DELETEEVENT,
-    item,
   };
 };
 
@@ -110,6 +119,6 @@ export const deleteEvent = (id) => async (dispatch) => {
   const res = await csrfFetch(`/api/events/${id}`, { method: "DELETE" });
 
   const data = await res.json();
-  dispatch(deleteCurrentEvent(id));
+  dispatch(deleteCurrentEvent());
   return res;
 };

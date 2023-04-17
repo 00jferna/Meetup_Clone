@@ -76,10 +76,9 @@ export const setGroupDetailEvents = (item) => {
   };
 };
 
-export const deleteCurrentGroup = (item) => {
+export const deleteCurrentGroup = () => {
   return {
     type: DELETEGROUP,
-    item,
   };
 };
 
@@ -166,7 +165,7 @@ export const deleteGroup = (id) => async (dispatch) => {
   });
 
   const data = await res.json();
-  dispatch(deleteCurrentGroup(data));
+  dispatch(deleteCurrentGroup());
   return res;
 };
 

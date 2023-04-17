@@ -12,18 +12,28 @@ module.exports = {
       options,
       [
         {
-          url: "../../../frontend/assets/pic001.jpg",
+          url: "/assets/groupImages/pexels-david-bartus-610293.jpg",
           groupId: 1,
           preview: true,
         },
         {
-          url: "../../../frontend/assets/pic002.jpg",
+          url: "/assets/groupImages/pexels-fox-750841.jpg",
           groupId: 2,
           preview: false,
         },
         {
-          url: "../../../frontend/assets/pic003.jpg",
+          url: "/assets/groupImagespexels-riccardo-307008.jpg",
           groupId: 3,
+          preview: true,
+        },
+        {
+          url: "/assets/groupImages/pexels-xue-guangjian-1687845.jpg",
+          groupId: 4,
+          preview: true,
+        },
+        {
+          url: "/assets/groupImages/pexels-fauxels-3184183.jpg",
+          groupId: 5,
           preview: true,
         },
       ],
@@ -37,7 +47,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        groupId: { [Op.in]: [1, 2, 3] },
+        groupId: { [Op.in]: [1, 2, 3, 4, 5] },
       },
       {}
     );

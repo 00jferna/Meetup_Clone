@@ -5,7 +5,7 @@ import EventListItem from "./EventlistItem";
 
 const EventsList = () => {
   const dispatch = useDispatch();
-  const eventList = useSelector((state) => state.event.events);
+  const eventList = useSelector((state) => state.event);
   const [page, setPage] = useState(1);
   const [loaded, setLoaded] = useState(false);
 
@@ -14,7 +14,7 @@ const EventsList = () => {
   }, [page]);
 
   const pageUp = () => {
-    if (Object.values(eventList).length == 20) setPage(page + 1);
+    if (eventList.eventTotal == 20) setPage(page + 1);
   };
   const pageDown = () => {
     if (page > 1) setPage(page - 1);
@@ -25,9 +25,18 @@ const EventsList = () => {
       {loaded && (
         <div>
           <ul>
-            {Object.values(eventList)
+            {Object.values(eventList.upcomingEvents)
               .sort((a, b) => {
-                return new Date(b.startDate) - new Date(a.startDate);
+                return new Date(a.startDate) - new Date(b.startDate);
+              })
+              .map((event) => (
+                <div className="eventListItem__cont" key={event.id}>
+                  <EventListItem event={event} />
+                </div>
+              ))}
+            {Object.values(eventList.pastEvents)
+              .sort((a, b) => {
+                return new Date(a.startDate) - new Date(b.startDate);
               })
               .map((event) => (
                 <div className="eventListItem__cont" key={event.id}>
@@ -42,7 +51,7 @@ const EventsList = () => {
             <p>Page {page}</p>
             <button
               onClick={pageUp}
-              disabled={Object.values(eventList).length == 20 ? "" : "disabled"}
+              disabled={eventList.eventTotal == 20 ? "" : "disabled"}
             >
               &#x3e;
             </button>
