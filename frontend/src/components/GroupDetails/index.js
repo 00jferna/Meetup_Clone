@@ -96,8 +96,8 @@ const GroupDetails = () => {
                     : hiddenSection
                 }
               >
-                <Link to={`/groups/${group.id}/new`} className="group__edit__button">CreateEvent</Link>
-                <Link to={`/`} className="group__edit__button">Update</Link>
+                <Link to={`/groups/${group.id}/events/new`} className="group__edit__button">CreateEvent</Link>
+                <Link to={`/groups/${group.id}/edit`} className="group__edit__button">Update</Link>
                 <OpenModalButton
                   buttonText={"Delete"}
                   className="group__edit__button"

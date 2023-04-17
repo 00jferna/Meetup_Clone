@@ -9,7 +9,10 @@ export default function eventsReducer(state = initialState, action) {
       newState.events = action.item;
       return newState;
     case SETEVENTDETAILS:
-      newState.eventDetails = action.item
+      newState.eventDetails = action.item;
+      return newState;
+    case DELETEEVENT:
+      delete newState.eventDetails;
       return newState;
     default:
       return newState;
@@ -18,6 +21,8 @@ export default function eventsReducer(state = initialState, action) {
 
 const SETALLEVENTS = "events/SETALLEVENTS";
 const SETEVENTDETAILS = "events/SETEVENTDETAILS";
+const CREATEEVENT = "groups/CREATEEVENT";
+const DELETEEVENT = "events/DELETEEVENT";
 
 export const setEvents = (item) => {
   return {
@@ -29,6 +34,20 @@ export const setEvents = (item) => {
 export const setEventDetails = (item) => {
   return {
     type: SETEVENTDETAILS,
+    item,
+  };
+};
+
+export const createGroupEvent = (item) => {
+  return {
+    type: CREATEEVENT,
+    item,
+  };
+};
+
+export const deleteCurrentEvent = (item) => {
+  return {
+    type: DELETEEVENT,
     item,
   };
 };
@@ -55,5 +74,42 @@ export const getEventDetails = (id) => async (dispatch) => {
 
   const data = await res.json();
   dispatch(setEventDetails(data));
+  return res;
+};
+
+export const createEvent = (id, event) => async (dispatch) => {
+  const {
+    name,
+    type,
+    price,
+    venueId,
+    capacity,
+    description,
+    startDate,
+    endDate,
+  } = event;
+
+  const res = await csrfFetch(`/api/groups/${id}/events`, {
+    method: "POST",
+    body: JSON.stringify({
+      name,
+      type,
+      price,
+      venueId,
+      capacity,
+      description,
+      startDate,
+      endDate,
+    }),
+  });
+  const data = await res.json();
+  return data;
+};
+
+export const deleteEvent = (id) => async (dispatch) => {
+  const res = await csrfFetch(`/api/events/${id}`, { method: "DELETE" });
+
+  const data = await res.json();
+  dispatch(deleteCurrentEvent(id));
   return res;
 };

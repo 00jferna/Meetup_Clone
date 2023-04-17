@@ -34,7 +34,6 @@ export default function groupsReducer(state = initialState, action) {
       }
       return newState;
     case DELETEGROUP:
-      console.log(action.item);
       delete newState.groupDetails;
       return newState;
     default:
@@ -47,7 +46,7 @@ const SETGROUPEVENTS = "groups/SETGROUPEVENTS";
 const SETGROUPDETAILS = "groups/SETGROUPDETAILS";
 const SETGROUPDETAILEVENTS = "groups/SETGROUPDETAILEVENTS";
 const DELETEGROUP = "groups/DELETEGROUP";
-const CREATEEVENT = "groups/CREATEEVENT";
+const UPDATEGROUP = "groups/UPDATEGROUP";
 
 export const setGroups = (item) => {
   return {
@@ -84,9 +83,9 @@ export const deleteCurrentGroup = (item) => {
   };
 };
 
-export const createGroupEvent = (item) => {
+export const updateCurrentGroup = (item) => {
   return {
-    type: CREATEEVENT,
+    type: UPDATEGROUP,
     item,
   };
 };
@@ -171,31 +170,22 @@ export const deleteGroup = (id) => async (dispatch) => {
   return res;
 };
 
-export const createEvent = (id, event) => async (dispatch) => {
-  const {
-    name,
-    type,
-    price,
-    venueId,
-    capacity,
-    description,
-    startDate,
-    endDate,
-  } = event;
-
-  const res = await csrfFetch(`/api/groups/${id}/events`, {
-    method: "POST",
+export const updateGroup = (group) => async (dispatch) => {
+  const { city, state, name, about, type, privateBol, imageUrl } = group;
+  const res = await csrfFetch(`/api/groups/${group.id}`, {
+    method: "PUT",
     body: JSON.stringify({
+      city,
+      state,
       name,
+      about,
       type,
-      price,
-      venueId,
-      capacity,
-      description,
-      startDate,
-      endDate,
+      private: privateBol,
+      imageUrl,
     }),
   });
+
   const data = await res.json();
-  return data;
+  dispatch(updateCurrentGroup(data));
+  return res;
 };

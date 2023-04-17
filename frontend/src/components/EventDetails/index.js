@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as eventActions from "../../store/events";
 import * as groupActions from "../../store/groups";
+import OpenModalButton from "../ConfirmModals";
+import * as EditItems from "../ConfirmModals/EditItems";
 import "./EventDetails.css";
 
 const EventDetails = () => {
@@ -11,9 +13,12 @@ const EventDetails = () => {
   const eventInt = Number.parseInt(eventId);
   const event = useSelector((state) => state.event.eventDetails);
   const group = useSelector((state) => state.group.groupDetails);
+  const user = useSelector((state) => state.session.user);
   const defaultImage = "/assets/group-cover-3-wide.webp";
   const [loaded, setLoaded] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(false);
+  const visibleSection = "visible";
+  const hiddenSection = "hidden";
 
   useEffect(() => {
     dispatch(eventActions.getEventDetails(eventInt)).then(() =>
@@ -36,7 +41,8 @@ const EventDetails = () => {
             <a href="/events">&#x3c; Events</a>
             <h2>{event.name}</h2>
             <h3>
-              Hosted by {group.Organizer && group.Organizer.firstName} {group.Organizer && group.Organizer.lastName}
+              Hosted by {group.Organizer && group.Organizer.firstName}{" "}
+              {group.Organizer && group.Organizer.lastName}
             </h3>
           </div>
           <div className="event__details__cont">
@@ -68,11 +74,13 @@ const EventDetails = () => {
                         <ul className="event__details__time">
                           <li>START</li>
                           <li>{new Date(event.startDate).toDateString()}</li>
+                          <li>&#x2022;</li>
                           <li>{new Date(event.startDate).toTimeString()}</li>
                         </ul>
                         <ul className="event__details__time">
                           <li>END</li>
                           <li>{new Date(event.endDate).toDateString()}</li>
+                          <li>&#x2022;</li>
                           <li>{new Date(event.endDate).toTimeString()}</li>
                         </ul>
                       </ul>
@@ -90,43 +98,30 @@ const EventDetails = () => {
                       <li>{event.type}</li>
                     </ul>
                   </ul>
+                  <div
+                    className={
+                      user
+                        ? group.organizerId === user.id
+                          ? visibleSection
+                          : hiddenSection
+                        : hiddenSection
+                    }
+                  >
+                    <button>Update</button>
+                    <OpenModalButton
+                      buttonText={"Delete"}
+                      className="group__edit__button"
+                      modalComponent={
+                        <EditItems.DeleteModal type="event" event={event} />
+                      }
+                    />
+                  </div>
                 </div>
               </div>
             </div>
             <div>
-              <h2>Details</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Proin fermentum leo vel orci porta. Sociis natoque penatibus et
-                magnis dis parturient montes nascetur ridiculus. Nisl nunc mi
-                ipsum faucibus. Turpis egestas maecenas pharetra convallis
-                posuere morbi. Ut ornare lectus sit amet. Augue lacus viverra
-                vitae congue eu consequat. Bibendum arcu vitae elementum
-                curabitur vitae nunc sed velit. Purus gravida quis blandit
-                turpis cursus in hac. Aliquam purus sit amet luctus venenatis
-                lectus magna fringilla urna. Proin nibh nisl condimentum id
-                venenatis a condimentum. Ut porttitor leo a diam sollicitudin
-                tempor id. Lacus laoreet non curabitur gravida arcu ac tortor.
-                Cursus turpis massa tincidunt dui ut ornare lectus sit. Maecenas
-                pharetra convallis posuere morbi leo urna. Dolor sit amet
-                consectetur adipiscing elit. Aliquet porttitor lacus luctus
-                accumsan tortor posuere ac ut. Proin nibh nisl condimentum id.
-                Aliquet risus feugiat in ante metus dictum at. Ut ornare lectus
-                sit amet. Turpis egestas integer eget aliquet nibh praesent
-                tristique magna sit. Enim tortor at auctor urna nunc.
-                Scelerisque varius morbi enim nunc faucibus a pellentesque sit.
-                Egestas sed sed risus pretium quam vulputate. Elit pellentesque
-                habitant morbi tristique senectus. A pellentesque sit amet
-                porttitor eget dolor morbi. Integer vitae justo eget magna
-                fermentum iaculis. Donec pretium vulputate sapien nec sagittis
-                aliquam malesuada bibendum. Commodo nulla facilisi nullam
-                vehicula ipsum a. Eget nullam non nisi est sit. Massa massa
-                ultricies mi quis hendrerit. Est placerat in egestas erat
-                imperdiet. Turpis cursus in hac habitasse. Cursus turpis massa
-                tincidunt dui ut ornare lectus sit amet. Quis lectus nulla at
-                volutpat diam ut venenatis.
-              </p>
+              <h2>Description</h2>
+              <p>{event.description}</p>
             </div>
           </div>
         </div>

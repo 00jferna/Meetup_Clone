@@ -3,6 +3,7 @@ import "./NewEventPage.css";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as groupActions from "../../store/groups";
+import * as eventActions from "../../store/events";
 
 const NewEventPage = () => {
   const { groupId } = useParams();
@@ -66,7 +67,7 @@ const NewEventPage = () => {
 
   const createNewEvent = (event) => {
     if (!Object.values(validationErrors).length) {
-      dispatch(groupActions.createEvent(group.id, event)).then((res) => {
+      dispatch(eventActions.createEvent(group.id, event)).then((res) => {
         history.push(`/events/${res.id}`);
         setValidationErrors({});
       });

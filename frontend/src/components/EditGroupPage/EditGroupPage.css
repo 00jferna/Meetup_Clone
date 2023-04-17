@@ -1,0 +1,43 @@
+.group__edit__cont {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.group__edit__section {
+  border-bottom: #000000 solid 1px;
+  padding: 10px 0px;
+}
+
+.group__edit__section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 50px;
+}
+
+.group__edit__section > input,
+.group__edit__section > select,
+.group__edit__section > textarea {
+  background: #e8f0fe;
+  padding: 0px;
+  width: 300px;
+}
+.group__edit__section > select {
+  width: fit-content;
+}
+
+.event__create__section > textarea {
+  width: 100%;
+}
+
+.group__edit__section > button {
+  color: #ffffff;
+  background-color: #ff5a5f;
+  border: #000000 solid 1px;
+  box-shadow: 1px 1px black;
+  height: 30px;
+  margin-top: 10px;
+  width: 125px;
+}
+
+.error {
+  color: red;
+}
