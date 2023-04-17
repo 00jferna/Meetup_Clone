@@ -47,7 +47,7 @@ const NewGroupPage = () => {
 
   const createNewGroup = (group) => {
     if (!Object.values(validationErrors).length) {
-      dispatch(groupActions.createGroup(group)).then((res) => {
+      dispatch(groupActions.updateGroup(group)).then((res) => {
         history.push(`/groups/${res.id}`);
         setValidationErrors({});
       });

@@ -1,8 +1,9 @@
 import React from "react";
-import { deleteGroup } from "../../store/groups";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import * as groupActions from "../../store/groups";
+import * as eventActions from "../../store/events"
 
 export const DeleteModal = (item) => {
   const type = item.type;
@@ -12,9 +13,16 @@ export const DeleteModal = (item) => {
 
   const onClickYes = () => {
     if (type === "group") {
-      dispatch(deleteGroup(item.group.id))
+      dispatch(groupActions.deleteGroup(item.group.id))
         .then(closeModal)
         .then(history.push("/groups"));
+    }
+
+    if (type === "event") {
+      const groupId = item.event.Group.id;
+      dispatch(eventActions.deleteEvent(item.event.id))
+        .then(closeModal)
+        .then(history.push(`/groups/${groupId}`));
     }
   };
 
