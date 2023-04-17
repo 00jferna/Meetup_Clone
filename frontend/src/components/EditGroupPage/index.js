@@ -21,6 +21,10 @@ const EditGroupPage = () => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    document.title = "Update My Group";
+  }, []);
+
+  useEffect(() => {
     dispatch(groupActions.getGroupDetails(groupId)).then(() => setLoaded(true));
   }, [dispatch]);
 

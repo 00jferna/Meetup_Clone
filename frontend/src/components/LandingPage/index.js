@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MeetupExplainer from "../MeetupExplain";
 import "./LandingPage.css";
 
 const LandingPage = () => {
+  useEffect(() => {
+    document.title = "My Meetup";
+  }, []);
+
   return (
     <>
       <div className="react__div">

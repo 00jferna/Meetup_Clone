@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import "./EventGroupHeader.css";
 
 const EventGroupHeader = ({ page }) => {
   let eventLinkClass = "inactive__page";
   let groupLinkClass = "inactive__page";
-  
+
+  useEffect(() => {
+    document.title = "My Meetup";
+  }, []);
+
   if (page === "events") {
     eventLinkClass = "active__page";
   } else if (page === "groups") {

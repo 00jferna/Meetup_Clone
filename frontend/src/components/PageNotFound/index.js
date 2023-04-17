@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import "./PageNotFound.css";
+import { useEffect } from "react";
 
 const PageNotFound = () => {
+  useEffect(() => {
+    document.title = "Page Not Found";
+  }, []);
   return (
     <>
       <div className="page__not__found__cont">

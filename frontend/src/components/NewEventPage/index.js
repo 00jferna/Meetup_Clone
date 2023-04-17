@@ -28,6 +28,10 @@ const NewEventPage = () => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    document.title = "Create a New Event";
+  }, []);
+
+  useEffect(() => {
     dispatch(groupActions.getGroupDetails(groupInt)).then(() =>
       setLoaded(true)
     );
