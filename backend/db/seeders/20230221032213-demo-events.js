@@ -12,6 +12,7 @@ module.exports = {
       options,
       [
         {
+          id: 1,
           groupId: 1,
           venueId: 1,
           name: "Photography WorkShop - Beginner",
@@ -22,9 +23,9 @@ module.exports = {
           price: 25.0,
           startDate: "2023-04-15 13:00:00",
           endDate: "2023-04-15 15:00:00",
-          previewImage:""
         },
         {
+          id: 2,
           groupId: 1,
           venueId: 1,
           name: "Photography WorkShop - Landscape",
@@ -37,6 +38,7 @@ module.exports = {
           endDate: "2023-04-19 19:00:00",
         },
         {
+          id: 3,
           groupId: 1,
           venueId: 1,
           name: "Photography WorkShop - Beginner",
@@ -49,6 +51,7 @@ module.exports = {
           endDate: "2023-04-29 15:00:00",
         },
         {
+          id: 4,
           groupId: 2,
           venueId: 1,
           name: "Sunday Cruise - West TN",
@@ -61,6 +64,7 @@ module.exports = {
           endDate: "2023-03-19 13:00:00",
         },
         {
+          id: 5,
           groupId: 2,
           venueId: 1,
           name: "Online Townhall",
@@ -73,6 +77,7 @@ module.exports = {
           endDate: "2023-03-24 22:00:00",
         },
         {
+          id: 6,
           groupId: 2,
           venueId: 1,
           name: "Online Townhall",
@@ -85,6 +90,7 @@ module.exports = {
           endDate: "2023-04-28 22:00:00",
         },
         {
+          id: 7,
           groupId: 3,
           venueId: 1,
           name: "Quarterly Planning Meeting",
@@ -97,6 +103,7 @@ module.exports = {
           endDate: "2023-03-05 13:00:00",
         },
         {
+          id: 8,
           groupId: 3,
           venueId: 1,
           name: "Quarterly Planning Meeting",
@@ -109,6 +116,7 @@ module.exports = {
           endDate: "2023-06-11 13:00:00",
         },
         {
+          id: 9,
           groupId: 4,
           venueId: 1,
           name: "Wolf River Day Hike - Memphis, TN",
@@ -121,6 +129,7 @@ module.exports = {
           endDate: "2023-03-05 13:00:00",
         },
         {
+          id: 10,
           groupId: 4,
           venueId: 1,
           name: "Demo Day - REI, Memphis, TN",
@@ -133,6 +142,7 @@ module.exports = {
           endDate: "2023-04-26 15:00:00",
         },
         {
+          id: 11,
           groupId: 4,
           venueId: 1,
           name: "Island Loop Trial Day Hike - Pickwick Dam, TN",
@@ -146,6 +156,7 @@ module.exports = {
         },
 
         {
+          id: 12,
           groupId: 5,
           venueId: 1,
           name: "Network Now: Happy Hour",
@@ -158,6 +169,7 @@ module.exports = {
           endDate: "2023-03-07 20:00:00",
         },
         {
+          id: 13,
           groupId: 5,
           venueId: 1,
           name: "Making Connections",
@@ -170,6 +182,7 @@ module.exports = {
           endDate: "2023-04-26 15:00:00",
         },
         {
+          id: 14,
           groupId: 5,
           venueId: 1,
           name: "Lunch & Learn",

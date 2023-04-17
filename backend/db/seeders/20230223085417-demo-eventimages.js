@@ -32,12 +32,12 @@ module.exports = {
           preview: true,
         },
         {
-          url: "/assets/eventImages/pexels-vojta-kovařík-3243090.jpg",
+          url: "/assets/eventImages/pexels-vojta-3243090.jpg",
           eventId: 7,
           preview: true,
         },
         {
-          url: "/assets/eventImages/pexels-vojta-kovařík-3243090.jpg",
+          url: "/assets/eventImages/pexels-vojta-3243090.jpg",
           eventId: 8,
           preview: true,
         },

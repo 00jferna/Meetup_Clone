@@ -12,6 +12,7 @@ module.exports = {
       options,
       [
         {
+          id: 1,
           name: "Memphis Photographers",
           about:
             "Join the Memphis TN Photographers Group to explore and capture the essence of this vibrant city through your lens. We offer photo walks, workshops, and events for photographers of all levels. Let's discover the beauty of Memphis together!",
@@ -21,6 +22,7 @@ module.exports = {
           state: "TN",
         },
         {
+          id: 2,
           name: "Motorbike Touring of America",
           about:
             "Join our motorbike touring group and explore the open road with like-minded riders. Experience the thrill of touring while enjoying the beauty of nature. Meet new friends and discover new destinations together. Join us for an adventure on two wheels!",
@@ -30,6 +32,7 @@ module.exports = {
           state: "TX",
         },
         {
+          id: 3,
           name: "International Travelers",
           about:
             "Ready to explore the world? Join our international travel group and experience new cultures, food, and people. From exotic destinations to off-the-beaten-path adventures, we offer unforgettable experiences that will broaden your horizons. Discover the world with us!",
@@ -39,6 +42,7 @@ module.exports = {
           state: "NY",
         },
         {
+          id: 4,
           name: "Backpackers of West Tennessee",
           about:
             "The Backpackers of West Tennessee group offers unforgettable outdoor experiences for hiking and camping enthusiasts. Join our community to broaden your horizons, meet new friends, and explore the great outdoors together.",
@@ -48,6 +52,7 @@ module.exports = {
           state: "TN",
         },
         {
+          id: 5,
           name: "Professionals of Nashville",
           about:
             "Our Nashville Professionals community is focused on networking and connecting like-minded individuals. Join us for business events, social gatherings, and more to expand your professional and personal circles. Build valuable relationships, grow your career, and make meaningful connections with our community.",

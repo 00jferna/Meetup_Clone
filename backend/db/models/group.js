@@ -49,11 +49,11 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       about: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           len: {
-            args: [50, 300],
+            args: [50, 600],
             msg: "About must be 50 characters or more",
           },
         },

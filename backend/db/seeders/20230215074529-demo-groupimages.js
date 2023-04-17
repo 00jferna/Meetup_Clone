@@ -19,10 +19,10 @@ module.exports = {
         {
           url: "/assets/groupImages/pexels-fox-750841.jpg",
           groupId: 2,
-          preview: false,
+          preview: true,
         },
         {
-          url: "/assets/groupImagespexels-riccardo-307008.jpg",
+          url: "/assets/groupImages/pexels-riccardo-307008.jpg",
           groupId: 3,
           preview: true,
         },
