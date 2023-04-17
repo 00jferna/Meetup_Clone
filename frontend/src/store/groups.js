@@ -90,8 +90,8 @@ export const updateCurrentGroup = (item) => {
   };
 };
 
-export const getAllGroups = () => async (dispatch) => {
-  const res = await csrfFetch("/api/groups", {
+export const getAllGroups = (page) => async (dispatch) => {
+  const res = await csrfFetch(`/api/groups?page=${page}`, {
     method: "GET",
   });
   const groupsObj = {};

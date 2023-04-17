@@ -20,3 +20,40 @@
 .inactive__page {
   color: #000000;
 }
+
+.pagintion {
+  align-items: center;
+  background-color: #cccccc;
+  border-radius: 5px 5px 0px 0px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  left: 50vw;
+  right: auto;
+  position: fixed;
+  transform: translate(-50%, 0);
+  height: 30px;
+  width: 200px;
+}
+.pagintion > button {
+  color: #00525e;
+  border: none;
+  background-color: unset;
+}
+
+.backtotop {
+  align-items: center;
+  background-color: #cccccc;
+  border-radius: 5px 5px 5px 5px;
+  bottom: 100px;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  position: fixed;
+  right: 0px;
+  width: 30px;
+}
+.backtotop:hover {
+  text-decoration: none;
+}

@@ -52,8 +52,8 @@ export const deleteCurrentEvent = (item) => {
   };
 };
 
-export const getAllEvents = () => async (dispatch) => {
-  const res = await csrfFetch("/api/events", {
+export const getAllEvents = (page) => async (dispatch) => {
+  const res = await csrfFetch(`/api/events?page=${page}`, {
     method: "GET",
   });
   const eventsObj = {};
