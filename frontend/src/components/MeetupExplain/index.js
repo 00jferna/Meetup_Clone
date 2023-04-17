@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./MeetupExplain.css";
 import { useSelector } from "react-redux";
-import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-import SignupFormModal from '../SignupFormModal';
-
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import SignupFormModal from "../SignupFormModal";
 
 const MeetupExplainer = () => {
   const sessionUser = useSelector((state) => state.session.user);
@@ -70,10 +69,10 @@ const MeetupExplainer = () => {
           </div>
         </div>
         <button className={sessionUser ? "disabled__item" : "join__button"}>
-        <OpenModalMenuItem
-              itemText="Join Meetup"
-              modalComponent={<SignupFormModal />}
-            />
+          <OpenModalMenuItem
+            itemText="Join Meetup"
+            modalComponent={<SignupFormModal />}
+          />
         </button>
       </div>
     </>

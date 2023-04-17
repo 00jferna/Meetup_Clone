@@ -21,6 +21,10 @@ const GroupDetails = () => {
   const hiddenSection = "hidden";
 
   useEffect(() => {
+    document.title = "My Meetup";
+  }, []);
+
+  useEffect(() => {
     dispatch(groupActions.getGroupDetails(groupInt)).then(() =>
       setLoaded(true)
     );
