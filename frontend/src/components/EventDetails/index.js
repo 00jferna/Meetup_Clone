@@ -89,7 +89,7 @@ const EventDetails = () => {
                       <li>
                         <i className="fa fa-dollar-sign"></i>
                       </li>
-                      <li>{event.price}</li>
+                      <li>{event.price == 0 ? "FREE" : event.price}</li>
                     </ul>
                     <ul className="event__details__price__location">
                       <li>
