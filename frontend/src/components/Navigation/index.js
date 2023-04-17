@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
@@ -8,11 +8,14 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   return (
-    <header className='main__header'>
-      <ul className = 'main__menu'>
+    <header className="main__header">
+      <ul className="main__menu">
         <li>
           <NavLink exact to="/">
-          <img className='main__header_logo' src="/assets/Meetup_logo.png"></img>
+            <img
+              className="main__header_logo"
+              src="/assets/Meetup_logo.png"
+            ></img>
           </NavLink>
         </li>
         {isLoaded && (

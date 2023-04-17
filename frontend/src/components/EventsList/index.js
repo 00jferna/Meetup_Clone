@@ -16,11 +16,15 @@ const EventsList = () => {
     <>
       {loaded && (
         <ul>
-          {Object.values(eventList).map((event) => (
-            <div className="eventListItem__cont" key={event.id}>
-              <EventListItem event={event} />
-            </div>
-          ))}
+          {Object.values(eventList)
+            .sort((a, b) => {
+              return new Date(b.startDate) - new Date(a.startDate);
+            })
+            .map((event) => (
+              <div className="eventListItem__cont" key={event.id}>
+                <EventListItem event={event} />
+              </div>
+            ))}
         </ul>
       )}
     </>

@@ -107,7 +107,7 @@ const EventDetails = () => {
                         : hiddenSection
                     }
                   >
-                    <button>Update</button>
+                    <button className="group__edit__button">Update</button>
                     <OpenModalButton
                       buttonText={"Delete"}
                       className="group__edit__button"

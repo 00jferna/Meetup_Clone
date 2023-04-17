@@ -11,6 +11,7 @@ import GroupDetails from "./components/GroupDetails";
 import EventDetails from "./components/EventDetails";
 import NewEventPage from "./components/NewEventPage";
 import EditGroupPage from "./components/EditGroupPage";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function App() {
 
           <Route path="/events/:eventId" component={EventDetails} />
           <Route path="/events" component={EventPage} />
+          <Route path="/" component={PageNotFound} />
         </Switch>
       )}
     </>

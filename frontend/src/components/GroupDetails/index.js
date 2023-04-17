@@ -35,6 +35,7 @@ const GroupDetails = () => {
 
   const onClick = (e) => {
     e.preventDefault();
+    alert("Feature coming soon");
     return;
   };
 
@@ -96,8 +97,18 @@ const GroupDetails = () => {
                     : hiddenSection
                 }
               >
-                <Link to={`/groups/${group.id}/events/new`} className="group__edit__button">CreateEvent</Link>
-                <Link to={`/groups/${group.id}/edit`} className="group__edit__button">Update</Link>
+                <Link
+                  to={`/groups/${group.id}/events/new`}
+                  className="group__edit__button"
+                >
+                  CreateEvent
+                </Link>
+                <Link
+                  to={`/groups/${group.id}/edit`}
+                  className="group__edit__button"
+                >
+                  Update
+                </Link>
                 <OpenModalButton
                   buttonText={"Delete"}
                   className="group__edit__button"
@@ -137,14 +148,18 @@ const GroupDetails = () => {
                   </h3>
                   <ul>
                     {group.upcomingEvents &&
-                      Object.values(group.upcomingEvents).map((event) => (
-                        <div
-                          key={event.id}
-                          className="group__eventListItem__cont"
-                        >
-                          <EventListItem event={event} />
-                        </div>
-                      ))}
+                      Object.values(group.upcomingEvents)
+                        .sort((a, b) => {
+                          return new Date(b.startDate) - new Date(a.startDate);
+                        })
+                        .map((event) => (
+                          <div
+                            key={event.id}
+                            className="group__eventListItem__cont"
+                          >
+                            <EventListItem event={event} />
+                          </div>
+                        ))}
                   </ul>
                 </div>
               </div>
@@ -166,14 +181,18 @@ const GroupDetails = () => {
                   </h3>
                   <ul>
                     {group.pastEvents &&
-                      Object.values(group.pastEvents).map((event) => (
-                        <div
-                          key={event.id}
-                          className="group__eventListItem__cont"
-                        >
-                          <EventListItem event={event} />
-                        </div>
-                      ))}
+                      Object.values(group.pastEvents)
+                        .sort((a, b) => {
+                          return new Date(b.startDate) - new Date(a.startDate);
+                        })
+                        .map((event) => (
+                          <div
+                            key={event.id}
+                            className="group__eventListItem__cont"
+                          >
+                            <EventListItem event={event} />
+                          </div>
+                        ))}
                   </ul>
                 </div>
               </div>

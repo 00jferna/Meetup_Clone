@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
@@ -62,6 +62,16 @@ function ProfileButton({ user }) {
             <>
               <li>Hello, {user.firstName}</li>
               <li>{user.email}</li>
+              <li>
+                <Link to="/groups" onClick={closeMenu}>
+                  Groups
+                </Link>
+              </li>
+              <li>
+                <Link to="/events" onClick={closeMenu}>
+                  Events
+                </Link>
+              </li>
               <li className="profile__dropdown__link" onClick={logout}>
                 Log Out
               </li>
