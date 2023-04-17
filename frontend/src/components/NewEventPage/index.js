@@ -127,6 +127,7 @@ const NewEventPage = () => {
               <input
                 type="number"
                 placeholder="0"
+                min="0"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               ></input>
