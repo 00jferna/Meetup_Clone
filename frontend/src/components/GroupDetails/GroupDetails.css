@@ -35,9 +35,18 @@
 }
 
 .group__eventListItem__cont {
-  border-radius: 5px;
   background-color: #ffffff;
+  border-radius: 5px;
+  font-size: small;
   margin-bottom: 10px;
+}
+.group__eventListItem__cont > a {
+  grid-template-columns: 50% auto;
+}
+
+.group__eventListItem__cont > a > img {
+  height: auto;
+  max-width: 200px;
 }
 
 .group__join__button {
