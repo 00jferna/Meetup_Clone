@@ -73,6 +73,7 @@ router.get("/", async (req, res) => {
       },
     ],
     group: ["Event.id", "Group.id", "Venue.id"],
+    order: [["startDate", "DESC"]],
   };
 
   if (req.query.name || req.query.type || req.query.startDate) query.where = {};

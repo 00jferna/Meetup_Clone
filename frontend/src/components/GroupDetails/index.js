@@ -163,10 +163,11 @@ const GroupDetails = () => {
                   </ul>
                 </div>
               </div>
+
               <div
                 className={
-                  group.upcomingEvents &&
-                  (Object.keys(group.upcomingEvents).length
+                  group.pastEvents &&
+                  (Object.keys(group.pastEvents).length
                     ? visibleSection
                     : hiddenSection)
                 }
