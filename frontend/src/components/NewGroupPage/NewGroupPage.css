@@ -14,7 +14,8 @@
 }
 
 .group__create__section > input,
-.group__create__section > select {
+.group__create__section > select,
+.group__create__section > textarea {
   background: #e8f0fe;
   padding: 0px;
   width: 300px;

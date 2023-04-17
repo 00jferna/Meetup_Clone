@@ -45,10 +45,9 @@ export const createGroupEvent = (item) => {
   };
 };
 
-export const deleteCurrentEvent = (item) => {
+export const deleteCurrentEvent = () => {
   return {
     type: DELETEEVENT,
-    item,
   };
 };
 
@@ -110,6 +109,6 @@ export const deleteEvent = (id) => async (dispatch) => {
   const res = await csrfFetch(`/api/events/${id}`, { method: "DELETE" });
 
   const data = await res.json();
-  dispatch(deleteCurrentEvent(id));
+  dispatch(deleteCurrentEvent());
   return res;
 };

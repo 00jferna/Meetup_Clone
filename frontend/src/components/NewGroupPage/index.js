@@ -46,12 +46,13 @@ const NewGroupPage = () => {
       privateBol,
       imageUrl,
     };
+    console.log(group)
     return createNewGroup(group);
   };
 
   const createNewGroup = (group) => {
     if (!Object.values(validationErrors).length) {
-      dispatch(groupActions.updateGroup(group)).then((res) => {
+      dispatch(groupActions.createGroup(group)).then((res) => {
         history.push(`/groups/${res.id}`);
         setValidationErrors({});
       });
@@ -112,12 +113,13 @@ const NewGroupPage = () => {
               <li>Who should join?</li>
               <li>What will you do at your events?</li>
             </ol>
-            <input
+            <textarea
               placeholder="Please write at least 30 characters"
               type="text"
               value={about}
+              rows="10"
               onChange={(e) => setAbout(e.target.value)}
-            ></input>
+            ></textarea>
             {validationErrors.about && (
               <div className="error">{validationErrors.about}</div>
             )}
