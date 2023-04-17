@@ -16,6 +16,10 @@ const NewGroupPage = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
 
+  useEffect(() => {
+    document.title = "Start a New Group";
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setValidationErrors({});

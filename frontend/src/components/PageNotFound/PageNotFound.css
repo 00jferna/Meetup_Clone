@@ -1,0 +1,9 @@
+.page__not__found__cont {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: -100px auto;
+  text-align: center;
+  justify-content: center;
+  width: fit-content;
+}

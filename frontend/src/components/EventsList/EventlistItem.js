@@ -16,6 +16,7 @@ const EventListItem = ({ event }) => {
         <div className="group__details">
           <ul className="event__datetime__cont">
             <li>{new Date(event.startDate).toDateString()}</li>
+            <li>&#x2022;</li>
             <li>{new Date(event.startDate).toTimeString()}</li>
           </ul>
           <h3>{event.name}</h3>
