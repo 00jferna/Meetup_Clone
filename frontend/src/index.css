@@ -21,7 +21,8 @@ button {
   width: 350px;
 }
 
-#modal-content > h1 {
+#modal-content > h1,
+#modal-content > div {
   text-align: center;
   margin: auto;
 }
@@ -68,6 +69,7 @@ button {
 
 .confirm__delete__list {
   list-style: none;
+  padding-inline-start: 0px;
 }
 
 .confirm__delete:last-of-type {
