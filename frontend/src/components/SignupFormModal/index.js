@@ -15,6 +15,7 @@ function SignupFormModal() {
   const [disableButton, setDisableButton] = useState(true);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+  const history = useHistory();
 
   useEffect(() => {
     if (

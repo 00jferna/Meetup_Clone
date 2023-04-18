@@ -47,7 +47,7 @@ const NewEventPage = () => {
     if (price == "") errors["price"] = "Price is required";
     if (startDate == "") errors["startDate"] = "Event start is required";
     if (endDate == "") errors["endDate"] = "Event end is required";
-    const imageUrlExt = imageUrl.split(".")[1];
+    const imageUrlExt = imageUrl.split(".")[imageUrl.split(".").length-1];
     const extensions = ["png", "jpg", "jpeg"];
     if (!extensions.includes(imageUrlExt))
       errors["imageUrl"] = "Image URL must end in .png, .jpg, or .jpeg";
