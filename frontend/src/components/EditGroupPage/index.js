@@ -19,13 +19,25 @@ const EditGroupPage = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
   const [loaded, setLoaded] = useState(false);
+  const [pageLoad, setPageLoaded] = useState(false);
 
   useEffect(() => {
     document.title = "Update My Group";
   }, []);
 
   useEffect(() => {
-    dispatch(groupActions.getGroupDetails(groupId)).then(() => setLoaded(true));
+    dispatch(groupActions.getGroupDetails(groupId))
+      .then(() => {
+        setLoaded(true);
+      })
+      .then(() => {
+        setLocation(`${group.city}, ${group.state}`);
+        setName(group.name);
+        setAbout(group.about);
+        setType(group.type);
+        setPrivateBol(group.private);
+        setImageUrl(group.Groupimage ? group.Groupimage[0] : "");
+      });
   }, [dispatch]);
 
   useEffect(() => {
@@ -44,7 +56,10 @@ const EditGroupPage = () => {
       errors["about"] = "Description must be at least 30 characters long";
     if (type == "") errors["type"] = "Group Type is required";
     if (privateBol == "") errors["privateBol"] = "Visibility Type is required";
-    const imageUrlExt = imageUrl.split(".")[1];
+    let imageUrlExt = "";
+    if (imageUrl) {
+      imageUrlExt = imageUrl.split(".")[imageUrl.split(".").length - 1];
+    }
     const extensions = ["png", "jpg", "jpeg"];
     if (!extensions.includes(imageUrlExt))
       errors["imageUrl"] = "Image URL must end in .png, .jpg, or .jpeg";
@@ -92,7 +107,7 @@ const EditGroupPage = () => {
               <input
                 placeholder="City, STATE"
                 type="text"
-                value={`${group.city}, ${group.state}`}
+                value={location}
                 onChange={(e) => setLocation(e.target.value)}
               ></input>
               {validationErrors.location && (
@@ -109,7 +124,7 @@ const EditGroupPage = () => {
               <input
                 placeholder="What is your group name?"
                 type="text"
-                value={group.name}
+                value={name}
                 onChange={(e) => setName(e.target.value)}
               ></input>
               {validationErrors.name && (
@@ -131,7 +146,7 @@ const EditGroupPage = () => {
                 placeholder="Please write at least 30 characters"
                 type="text"
                 rows="10"
-                value={group.about}
+                value={about}
                 onChange={(e) => setAbout(e.target.value)}
               ></textarea>
               {validationErrors.about && (
@@ -143,7 +158,7 @@ const EditGroupPage = () => {
               <p>Is this an in person or online group?</p>
               <select
                 type="text"
-                value={group.type}
+                value={type}
                 onChange={(e) => setType(e.target.value)}
               >
                 <option value="">(Select One)</option>
@@ -156,7 +171,7 @@ const EditGroupPage = () => {
               <p>Is this group private or public?</p>
               <select
                 type="text"
-                value={group.private}
+                value={privateBol}
                 onChange={(e) => setPrivateBol(e.target.value)}
               >
                 <option value="">(Select One)</option>
@@ -170,7 +185,7 @@ const EditGroupPage = () => {
               <input
                 placeholder="Image Url"
                 type="text"
-                value={group.Groupimage ? group.Groupimage[0] : ""}
+                value={imageUrl}
                 onChange={(e) => {
                   setImageUrl(e.target.value);
                 }}

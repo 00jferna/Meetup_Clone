@@ -77,6 +77,9 @@
   list-style: none;
   padding-inline-start: 10px;
 }
+.event__details__price__location>li:last-of-type{
+  margin-left: 15px;
+}
 
 .event__group__image {
   align-self: center;
