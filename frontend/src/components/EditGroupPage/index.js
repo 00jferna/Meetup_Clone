@@ -54,8 +54,9 @@ const EditGroupPage = () => {
     if (!name.length) errors["name"] = "Name is required";
     if (about.length <= 30)
       errors["about"] = "Description must be at least 30 characters long";
-    if (type == "") errors["type"] = "Group Type is required";
-    if (privateBol == "") errors["privateBol"] = "Visibility Type is required";
+    if (type == "not selected") errors["type"] = "Group Type is required";
+    if (privateBol == "not selected")
+      errors["privateBol"] = "Visibility Type is required";
     let imageUrlExt = "";
     if (imageUrl) {
       imageUrlExt = imageUrl.split(".")[imageUrl.split(".").length - 1];
@@ -63,7 +64,9 @@ const EditGroupPage = () => {
     const extensions = ["png", "jpg", "jpeg"];
     if (!extensions.includes(imageUrlExt))
       errors["imageUrl"] = "Image URL must end in .png, .jpg, or .jpeg";
+
     setValidationErrors(errors);
+
     const group = {
       id: groupId,
       city,
@@ -74,11 +77,12 @@ const EditGroupPage = () => {
       privateBol,
       imageUrl,
     };
-    return updateCurrGroup(group);
+    console.log(group);
+    updateCurrGroup(group, errors);
   };
 
-  const updateCurrGroup = (group) => {
-    if (!Object.values(validationErrors).length) {
+  const updateCurrGroup = (group, errors) => {
+    if (!Object.values(errors).length) {
       dispatch(groupActions.updateGroup(group)).then((res) => {
         history.push(`/groups/${group.id}`);
         setValidationErrors({});
@@ -161,7 +165,7 @@ const EditGroupPage = () => {
                 value={type}
                 onChange={(e) => setType(e.target.value)}
               >
-                <option value="">(Select One)</option>
+                <option value="not selected">(Select One)</option>
                 <option value="In person">In Person</option>
                 <option value="Online">Online</option>
               </select>
@@ -174,7 +178,7 @@ const EditGroupPage = () => {
                 value={privateBol}
                 onChange={(e) => setPrivateBol(e.target.value)}
               >
-                <option value="">(Select One)</option>
+                <option value="not selected">(Select One)</option>
                 <option value={true}>Private</option>
                 <option value={false}>Public</option>
               </select>
